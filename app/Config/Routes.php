@@ -20,6 +20,7 @@ $routes->group('superadmin', static function ($routes) {
     $routes->get('fetchData', 'Home::SuperAdminfetchData', ['filter' => 'IsSuperAdmin']);
     $routes->get('editForm?(:any)', 'Home::SuperAdminEdit/$1', ['filter' => 'IsSuperAdmin']);
     $routes->get('edata', 'Home::SuperAdminEditData', ['filter' => 'IsSuperAdmin']);
+    $routes->post('editformdata', 'Home::SuperAdminEditformdata', ['filter' => 'IsSuperAdmin']);
 });
 
 

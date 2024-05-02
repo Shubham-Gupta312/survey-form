@@ -10,5 +10,8 @@ class HealthModel extends Model
     protected $primaryKey = 'id';
     protected $protectFields = [];
 
-   
+    public function updateData($id, $data)
+    {
+        return $this->update($id, $data);
+    }
 }

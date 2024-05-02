@@ -27,6 +27,10 @@
         li a {
             text-decoration: none;
         }
+
+        .help-block {
+            color: rgba(var(--bs-danger-rgb));
+        }
     </style>
 </head>
 
@@ -202,16 +206,18 @@
                         <h2 class="main-heading">Employee Health Checkup Form</h2>
                     </div>
 
-                    <form class="checkup-form">
+                    <form class="checkup-form" id="Reportform">
                         <!-- ======= Personal History Section======= -->
                         <div class="checkup-form__section">
                             <h4 class="sub-heading">Personal History</h4>
                             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
                                 <div class="col form-group">
-                                    <input type="hidden" name="formEid" id="formEid">
+                                    <input type="hidden" name="id" id="formEid">
                                     <label class="form-label">RMH/UHID <span class="required">*</span></label>
-                                    <input type="text" class="form-control" name="uhid" id="uhid"
+                                    <input type="text" class="form-control onlyalphanum" name="uhid" id="uhid"
                                         placeholder="RMH/UHID">
+                                    <div class="invalid-feedback text-danger" id="uhid_msg">
+                                    </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Employee ID <span class="required">*</span></label>
@@ -269,29 +275,37 @@
                                 <div class="col form-group">
                                     <label class="form-label">Obstetric / Mentrual History <span
                                             class="required">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Obstetric / Mentrual History"
-                                        name="mentrual" id="mentrual">
+                                    <input type="text" class="form-control onlyalphanum"
+                                        placeholder="Obstetric / Mentrual History" name="mentrual" id="mentrual">
+                                        <div class="invalid-feedback text-danger" id="mentrual_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Presenting Complaints<span
                                             class="required">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Presenting Complaints"
-                                        id="pr_comp" name="pr_comp">
+                                    <input type="text" class="form-control onlyalphanum"
+                                        placeholder="Presenting Complaints" id="pr_comp" name="pr_comp">
+                                        <div class="invalid-feedback text-danger" id="pr_comp_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Past History<span class="required">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Past History" name="past"
-                                        id="past">
+                                    <input type="text" class="form-control onlyalphanum" placeholder="Past History"
+                                        name="past" id="past">
+                                        <div class="invalid-feedback text-danger" id="past_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Family History<span class="required">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Family History" name="fam_his"
-                                        id="fam_his">
+                                    <input type="text" class="form-control onlyalphanum" placeholder="Family History"
+                                        name="fam_his" id="fam_his">
+                                        <div class="invalid-feedback text-danger" id="fam_his_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
-                                    <label class="form-label">Others<span class="required">*</span></label>
-                                    <input type="text" class="form-control" placeholder="Others" name="other"
-                                        id="other">
+                                    <label class="form-label">Others</label>
+                                    <input type="text" class="form-control onlyalphanum" placeholder="Others"
+                                        name="other" id="other">
                                 </div>
                             </div>
                             <hr />
@@ -301,9 +315,9 @@
                                         <img src="" class="uploaded_photo" alt="Employee Name" name="photo"
                                             id="photo" />
                                     </div>
-                                    <div class="custom-upload">
+                                    <div class="custom-upload form-group">
                                         <input type="file" id="upload-img" class="inputfile" id="image" name="image"
-                                            accept=".jpg, .png, .jpeg" disabled>
+                                            accept=".jpg, .png, .jpeg">
                                         <label for="upload-img">
                                             <div class="d-grid">
                                                 <span class="btn btn-outline-primary btn-sm">Change Photo</span>
@@ -430,17 +444,24 @@
                                 <div class="col form-group">
                                     <label class="form-label">Defects / Disability <span
                                             class="required">*</span></label>
-                                    <input class="form-control" type="text" placeholder="Defects / Disability"
-                                        name="defect" id="defect">
+                                    <input class="form-control onlyalphanum" type="text"
+                                        placeholder="Defects / Disability" name="defect" id="defect">
+                                        <div class="invalid-feedback text-danger" id="defect_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Pulse Rate<span class="required">*</span></label>
-                                    <input class="form-control" type="text" placeholder="Pulse Rate" name="pulse"
-                                        id="pulse">
+                                    <input class="form-control onlyalphanum" type="text" placeholder="Pulse Rate"
+                                        name="pulse" id="pulse">
+                                        <div class="invalid-feedback text-danger" id="pulse_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">BP<span class="required">*</span></label>
-                                    <input class="form-control" type="text" placeholder="BP" name="bp" id="bp">
+                                    <input class="form-control onlyalphanum" type="text" placeholder="BP" name="bp_rprt"
+                                        id="bp_rprt">
+                                        <div class="invalid-feedback text-danger" id="bp_rprt_msg">
+                                </div>
                                 </div>
                             </div>
                         </div><!-- End Health Info -->
@@ -465,12 +486,16 @@
                                     <label class="form-label"> Distance Vision<span class="required">*</span></label>
                                 </div>
                                 <div class="col form-group">
-                                    <input class="form-control" type="text" placeholder="Left" name="d_left"
+                                    <input class="form-control anum" type="text" placeholder="Left" name="d_left"
                                         id="d_left">
+                                        <div class="invalid-feedback text-danger" id="d_left_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
-                                    <input class="form-control" type="text" placeholder="Right" name="d_right"
+                                    <input class="form-control anum" type="text" placeholder="Right" name="d_right"
                                         id="d_right">
+                                        <div class="invalid-feedback text-danger" id="d_right_msg">
+                                </div>
                                 </div>
                             </div>
                             <div class="row row-cols-3">
@@ -478,12 +503,16 @@
                                     <label class="form-label"> Near Vision<span class="required">*</span></label>
                                 </div>
                                 <div class="col form-group">
-                                    <input class="form-control" type="text" placeholder="Left" name="n_left"
+                                    <input class="form-control anum" type="text" placeholder="Left" name="n_left"
                                         id="n_left">
+                                        <div class="invalid-feedback text-danger" id="n_left_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
-                                    <input class="form-control" type="text" placeholder="Right" name="n_right"
+                                    <input class="form-control anum" type="text" placeholder="Right" name="n_right"
                                         id="n_right">
+                                        <div class="invalid-feedback text-danger" id="n_right_msg">
+                                </div>
                                 </div>
                             </div>
                             <div class="row row-cols-3">
@@ -491,12 +520,16 @@
                                     <label class="form-label"> Color Vision<span class="required">*</span></label>
                                 </div>
                                 <div class="col form-group">
-                                    <input class="form-control" type="text" placeholder="Left" name="c_left"
+                                    <input class="form-control anum" type="text" placeholder="Left" name="c_left"
                                         id="c_left">
+                                        <div class="invalid-feedback text-danger" id="c_left_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
-                                    <input class="form-control" type="text" placeholder="Right" name="c_right"
+                                    <input class="form-control anum" type="text" placeholder="Right" name="c_right"
                                         id="c_right">
+                                        <div class="invalid-feedback text-danger" id="c_right_msg">
+                                </div>
                                 </div>
                             </div>
                             <div class="row row-cols-3">
@@ -504,12 +537,16 @@
                                     <label class="form-label">Correction<span class="required">*</span></label>
                                 </div>
                                 <div class="col form-group">
-                                    <input class="form-control" type="text" placeholder="Left" name="cr_left"
+                                    <input class="form-control anum" type="text" placeholder="Left" name="cr_left"
                                         id="cr_left">
+                                        <div class="invalid-feedback text-danger" id="cr_left_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
-                                    <input class="form-control" type="text" placeholder="Right" name="cr_right"
+                                    <input class="form-control anum" type="text" placeholder="Right" name="cr_right"
                                         id="cr_right">
+                                        <div class="invalid-feedback text-danger" id="cr_right_msg">
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -520,57 +557,79 @@
                             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
                                 <div class="col form-group">
                                     <label class="form-label">Respiratory System <span class="required">*</span></label>
-                                    <input class="form-control" type="text" placeholder="Respiratory System"
-                                        name="respiratory" id="respiratory">
+                                    <input class="form-control onlyalphanum" type="text"
+                                        placeholder="Respiratory System" name="respiratory" id="respiratory">
+                                        <div class="invalid-feedback text-danger" id="respiratory_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Cardio - Vascular System<span
                                             class="required">*</span></label>
-                                    <input class="form-control" type="text" placeholder="Cardio - Vascular System"
-                                        name="cardio" id="cardio">
+                                    <input class="form-control onlyalphanum" type="text"
+                                        placeholder="Cardio - Vascular System" name="cardio" id="cardio">
+                                        <div class="invalid-feedback text-danger" id="cardio_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Central Nervous System<span
                                             class="required">*</span></label>
-                                    <input class="form-control" type="text" placeholder="Central Nervous System"
-                                        name="nervous" id="nervous">
+                                    <input class="form-control onlyalphanum" type="text"
+                                        placeholder="Central Nervous System" name="nervous" id="nervous">
+                                        <div class="invalid-feedback text-danger" id="nervous_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Abdomen<span class="required">*</span></label>
-                                    <input class="form-control" type="text" placeholder="Abdomen" name="abdomen"
-                                        id="abdomen">
+                                    <input class="form-control onlyalphanum" type="text" placeholder="Abdomen"
+                                        name="abdomen" id="abdomen">
+                                        <div class="invalid-feedback text-danger" id="abdomen_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Skin<span class="required">*</span></label>
-                                    <input class="form-control" type="text" placeholder="Skin" name="skin" id="skin">
+                                    <input class="form-control onlyalphanum" type="text" placeholder="Skin" name="skin"
+                                        id="skin">
+                                        <div class="invalid-feedback text-danger" id="skin_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Audiometry<span class="required">*</span></label>
-                                    <input class="form-control" type="text" placeholder="Audiometry" name="audiometry"
-                                        id="audiometry">
+                                    <input class="form-control onlyalphanum" type="text" placeholder="Audiometry"
+                                        name="audiometry" id="audiometry">
+                                        <div class="invalid-feedback text-danger" id="audiometry_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Electrocardiogram -ECG<span
                                             class="required">*</span></label>
-                                    <input class="form-control" type="text" placeholder="Electrocardiogram -ECG"
-                                        name="ecg" id="ecg">
+                                    <input class="form-control onlyalphanum" type="text"
+                                        placeholder="Electrocardiogram -ECG" name="ecg" id="ecg">
+                                        <div class="invalid-feedback text-danger" id="ecg_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Chest X - Ray<span class="required">*</span></label>
-                                    <input class="form-control" type="text" placeholder="Chest X - Ray" name="xray"
-                                        id="xray">
+                                    <input class="form-control onlyalphanum" type="text" placeholder="Chest X - Ray"
+                                        name="xray" id="xray">
+                                        <div class="invalid-feedback text-danger" id="xray_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Thyphoid Vaccine<span class="required">*</span></label>
-                                    <input class="form-control" type="text" placeholder="Thyphoid Vaccine"
+                                    <input class="form-control onlyalphanum" type="text" placeholder="Thyphoid Vaccine"
                                         name="thyphoid" id="thyphoid">
+                                        <div class="invalid-feedback text-danger" id="thyphoid_msg">
+                                </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Lung Function Test <span class="required">*</span></label>
                                     <br>
                                     <div class="custom-upload">
-                                        <input type="file" class="inputfile" name="lung" id="lung" accept=".pdf">
-                                        <label for="upload-pdf">
+                                        <input type="file" class="inputfile" name="upload-lungpdf" id="upload-lungpdf"
+                                            accept=".pdf">
+                                            <div class="invalid-feedback text-danger" id="upload-lungpdf_msg">
+                                </div>
+                                        <label for="upload-lungpdf">
                                             <div class="d-grid">
                                                 <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
                                             </div>
@@ -582,8 +641,11 @@
                                     <label class="form-label">Lab Investigation <span class="required">*</span></label>
                                     <br>
                                     <div class="custom-upload">
-                                        <input type="file" class="inputfile" id="lab" name="lab">
-                                        <label for="upload-pdf">
+                                        <input type="file" class="inputfile" id="upload-labpdf" name="upload-labpdf"
+                                            accept=".pdf">
+                                            <div class="invalid-feedback text-danger" id="upload-labpdf_msg">
+                                </div>
+                                        <label for="upload-labpdf">
                                             <div class="d-grid">
                                                 <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
                                             </div>
@@ -591,6 +653,7 @@
                                     </div>
                                     <div class="form-text">Less than or equal to 1Mb</div>
                                 </div>
+
                             </div>
 
                         </div>
@@ -617,11 +680,13 @@
                                     <label class="form-label">Hypertension <span class="normal">(BP- blood pressure
                                             issues)</span> <span class="required">*</span></label> <br>
                                     <div class="form-check-inline">
-                                        <input class="form-check-input" type="radio" name="bp" id="bp-yes" value="yes" disabled>
+                                        <input class="form-check-input" type="radio" name="bp" id="bp-yes" value="yes"
+                                            disabled>
                                         <label class="form-check-label" for="bp-yes">Yes</label>
                                     </div>
                                     <div class="form-check-inline">
-                                        <input class="form-check-input" type="radio" name="bp" id="bp-no" value="no" disabled>
+                                        <input class="form-check-input" type="radio" name="bp" id="bp-no" value="no"
+                                            disabled>
                                         <label class="form-check-label" for="bp-no">No</label>
                                     </div>
                                 </div>
@@ -689,10 +754,12 @@
                         </div> <!-- End Disease -->
 
                         <!-- ======= Health Information Section======= -->
-                        <div class="checkup-form__section pb-4">
+                        <div class="checkup-form__section pb-4 form-group">
                             <h4 class="sub-heading">Advice Remarks</h4>
                             <textarea class="form-control" name="advice" id="advice"
                                 placeholder="Advice Remarks"></textarea>
+                                <div class="invalid-feedback text-danger" id="advice_msg">
+                                </div>
                         </div>
                         <!-- Form Row -->
                         <div class="checkup-form__row">
@@ -722,11 +789,12 @@
                             </div>
                             <div class="col form-group">
                                 <div class="d-grid">
-                                    <button type="submit" class="btn btn-lg btn-primary">Submit</button>
+                                    <button type="submit" id="submit" name="submit"
+                                        class="btn btn-lg btn-primary">Submit</button>
                                 </div>
-                                <div class="text-center  mt-5">
+                                <!-- <div class="text-center  mt-5">
                                     <strong>Thank you for your cooperation.</strong>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
 
@@ -801,9 +869,20 @@
     <script src="../../dist/js/pages/dashboards/dashboard2.js"></script>
     <script>
         $(document).ready(function () {
+            $('body').on('keyup', ".onlyalphanum", function (event) {
+                this.value = this.value.replace(/[^[A-Za-z0-9 ]]*/gi, '');
+            });
+            $('body').on('keyup', ".anum", function (event) {
+                this.value = this.value.replace(/[^a-zA-z0-9\/]/g, '');
+            });
+
+
+
             var urlParams = new URLSearchParams(window.location.search);
             var eid = urlParams.get('i');
             $('#formEid').val(eid);
+
+
 
             $.ajax({
                 method: "GET",
@@ -830,7 +909,7 @@
                     var allergy_name = response.message.allergy_name;
                     $('#allergy_name').val(allergy_name);
 
-                    var other_diseasename =response.message.other_diseasename;
+                    var other_diseasename = response.message.other_diseasename;
                     $('#other_disease').val(other_diseasename)
 
 
@@ -905,6 +984,254 @@
                         $('#ageError').hide();
                     }
                 }
+            });
+
+            jQuery(document).ready(function (e) {
+                $('#Reportform').bootstrapValidator({
+                    fields: {
+                        'uhid': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please enter RMH/UHID"
+                                },
+                            }
+                        },
+                        'mentrual': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please enter Obstetric / Mentrual History"
+                                },
+                            }
+                        },
+                        'pr_comp': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please enter Presenting Complaints"
+                                },
+                            }
+                        },
+                        'past': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Past History"
+                                },
+                            }
+                        },
+                        'fam_his': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Family History"
+                                },
+                            }
+                        },
+                        'defect': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Defects / Disability "
+                                },
+                            }
+                        },
+                        'pulse': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Pulse Rate"
+                                },
+                            }
+                        },
+                        'bp_rprt': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter BP"
+                                },
+                            }
+                        },
+                        'd_left': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Distance Vision Left Eye"
+                                },
+                            }
+                        },
+                        'd_right': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Distance Vision Right Eye"
+                                },
+                            }
+                        },
+                        'n_left': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Near Vision Left Eye"
+                                },
+                            }
+                        },
+                        'n_right': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Near Vision Right Eye"
+                                },
+                            }
+                        },
+                        'c_left': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Color Vision Left Eye"
+                                },
+                            }
+                        },
+                        'c_right': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Color Vision Right Eye"
+                                },
+                            }
+                        },
+                        'cr_left': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Correction Left Eye"
+                                },
+                            }
+                        },
+                        'cr_right': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Correction Right Eye"
+                                },
+                            }
+                        },
+                        'respiratory': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Respiratory System Report"
+                                },
+                            }
+                        },
+                        'cardio': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Cardio - Vascular System Report"
+                                },
+                            }
+                        },
+                        'nervous': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Central Nervous System Report"
+                                },
+                            }
+                        },
+                        'abdomen': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Abdomen Report"
+                                },
+                            }
+                        },
+                        'skin': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Skin Report"
+                                },
+                            }
+                        },
+                        'audiometry': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please ENter Audiometry Report"
+                                },
+                            }
+                        },
+                        'ecg': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Electrocardiogram - ECG Report"
+                                },
+                            }
+                        },
+                        'xray': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Chest X - Ray Report"
+                                },
+                            }
+                        },
+                        'thyphoid': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please Enter Thyphoid Vaccine"
+                                },
+                            }
+                        },
+                        'upload-lungpdf': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please choose a PDF file"
+                                },
+                                file: {
+                                    extension: 'pdf',
+                                    type: 'application/pdf',
+                                    maxSize: 2 * 1024 * 1024,
+                                    message: 'The selected file is not a valid PDF or exceeds 2 MB in size',
+                                },
+                            }
+                        },
+                        'upload-labpdf': {
+                            validators: {
+                                notEmpty: {
+                                    message: "Please choose a PDF file"
+                                },
+                                file: {
+                                    extension: 'pdf',
+                                    type: 'application/pdf',
+                                    maxSize: 2 * 1024 * 1024,
+                                    message: 'The selected file is not a valid PDF or exceeds 2 MB in size',
+                                },
+                            }
+                        },
+                        'advice': {
+                            validators: {
+                                notEmpty: {
+                                    message: 'PLease Enter Advice Remarks'
+                                }
+                            }
+                        }
+                    },
+                }).on('success.form.bv', function (e) {
+                    e.preventDefault();
+                    var $form = $(e.target);
+                    var bv = $form.data('bootstrapValidator');
+                    var formData = new FormData($form[0]);
+                    console.log(formData);
+                    $.ajax({
+                        url: "<?= base_url('superadmin/editformdata') ?>",
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function (response) {
+                            // console.log(response);
+                            if (response.status == 'error') {
+                                let error = response.errors;
+                                for (const key in error) {
+                                    document.getElementById(key).classList.add('is-invalid');
+                                    document.getElementById(key + '_msg').innerHTML = error[key];
+                                }
+                            } else {
+                                $.notify(response.message, "success");
+                                setTimeout(function () {
+                                    window.location.href = "<?= base_url('superadmin/dashboard') ?>";
+                                }, 300);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            // Handle error
+                            console.error(error);
+                        }
+                    });
+                });
+
             });
         });
     </script>
