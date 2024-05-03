@@ -291,16 +291,6 @@
                 }
             });
 
-            // var table = $('#dashboardTable').DataTable();
-            // $(document).on('click', '#eform', function (e) {
-            //     e.preventDefault();
-            //     var button = $(this);
-            //     var data = table.row(button.closest('tr')).data();
-            //     var eid = data[0];
-            //     // console.log(eid);
-            //     var url = '<?php echo base_url("superadmin/editForm") ?>?i=' + eid;
-            //     window.location.href = url;
-            // });
         });
     </script>
 </body>

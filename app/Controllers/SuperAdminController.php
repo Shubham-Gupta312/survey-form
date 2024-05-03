@@ -230,7 +230,16 @@ class SuperAdminController extends BaseController
                 }
             }
         }
+    }
 
+    function validateUHID()
+    {
+        $uid = $this->request->getGet('uhid');
+        $md = new \App\Models\HealthModel();
+        $isExist = $md->where('uhid', esc($uid))->first();
+        $retVal = $isExist ? false : true;
+
+        return $this->response->setJSON(['valid' => $retVal]);
     }
 
 }

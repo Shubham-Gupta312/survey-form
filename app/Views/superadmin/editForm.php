@@ -994,6 +994,10 @@
                                 notEmpty: {
                                     message: "Please enter RMH/UHID"
                                 },
+                                remote: {
+                                    message: 'UHID already exist!',
+                                    url: "<?= base_url('superadmin/validate_UHID') ?>"
+                                },
                             }
                         },
                         'mentrual': {

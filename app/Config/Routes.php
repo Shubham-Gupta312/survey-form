@@ -21,6 +21,7 @@ $routes->group('superadmin', static function ($routes) {
     $routes->get('editForm?(:any)', 'SuperAdminController::SuperAdminEdit/$1', ['filter' => 'IsSuperAdmin']);
     $routes->get('edata', 'SuperAdminController::SuperAdminEditData', ['filter' => 'IsSuperAdmin']);
     $routes->post('editformdata', 'SuperAdminController::SuperAdminEditformdata', ['filter' => 'IsSuperAdmin']);
+    $routes->get('validate_UHID', 'SuperAdminController::validateUHID', ['filter' => 'IsSuperAdmin']);
 });
 
 
