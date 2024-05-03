@@ -16,11 +16,11 @@ $routes->group('superadmin', static function ($routes) {
     $routes->post('login', 'AuthController::superadminlogin');
     $routes->get('logout', 'AuthController::superAdminlogout');
 
-    $routes->get('dashboard', 'Home::superadminDashboard', ['filter' => 'IsSuperAdmin'],);
-    $routes->get('fetchData', 'Home::SuperAdminfetchData', ['filter' => 'IsSuperAdmin']);
-    $routes->get('editForm?(:any)', 'Home::SuperAdminEdit/$1', ['filter' => 'IsSuperAdmin']);
-    $routes->get('edata', 'Home::SuperAdminEditData', ['filter' => 'IsSuperAdmin']);
-    $routes->post('editformdata', 'Home::SuperAdminEditformdata', ['filter' => 'IsSuperAdmin']);
+    $routes->get('dashboard', 'SuperAdminController::superadminDashboard', ['filter' => 'IsSuperAdmin'],);
+    $routes->get('fetchData', 'SuperAdminController::SuperAdminfetchData', ['filter' => 'IsSuperAdmin']);
+    $routes->get('editForm?(:any)', 'SuperAdminController::SuperAdminEdit/$1', ['filter' => 'IsSuperAdmin']);
+    $routes->get('edata', 'SuperAdminController::SuperAdminEditData', ['filter' => 'IsSuperAdmin']);
+    $routes->post('editformdata', 'SuperAdminController::SuperAdminEditformdata', ['filter' => 'IsSuperAdmin']);
 });
 
 
