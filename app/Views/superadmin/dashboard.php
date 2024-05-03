@@ -178,7 +178,12 @@
             <!-- Container fluid  -->
             <!-- ============================================================== -->
             <div class="container-fluid">
-                <h2 style="margin-bottom: 15px;">List of Employee's</h2>
+                <div class="row">
+                    <h2 style="margin-bottom: 15px;">List of Employee's</h2>
+                    <div class="col text-right">
+                        <button class="btn btn-outline-success"><i class="fas fa-plus-circle"></i> Add New</button>
+                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dashboardTable" style="width: 1100px;">
                         <thead>

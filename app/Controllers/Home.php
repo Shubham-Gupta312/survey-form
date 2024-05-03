@@ -208,54 +208,56 @@ class Home extends BaseController
                 if ($img->isValid() && !$img->hasMoved()) {
                     $newImageName = $img->getRandomName();
                     $img->move("../public/assets/images/uploads/", $newImageName);
+                } else {
+                    $newImageName = '';
+                }
+                $data = [
+                    'emp_id' => esc($eid),
+                    'name' => ucwords(esc($nm)),
+                    'gender' => esc($gn),
+                    'other_gender' => esc($gndr),
+                    'dob' => esc($dob),
+                    'age' => esc(''),
+                    'phone' => esc($phn),
+                    'service_dur' => esc($srvc),
+                    'dept' => esc($dept),
+                    'photo' => esc($newImageName),
+                    'height' => esc($hght),
+                    'weight' => esc($wght),
+                    'blood' => esc($bg),
+                    'diet' => esc($dt),
+                    'diet_name' => esc($dtnm),
+                    'smoking' => esc($smk),
+                    'alcohol' => esc($alchl),
+                    'snuff' => esc($snf),
+                    'allergy' => esc($algr),
+                    'allergy_name' => esc($algrnm),
+                    'diabetes' => esc($dbt),
+                    'bp' => esc($bp),
+                    'heart_disease' => esc($hrt),
+                    'kidney_disease' => esc($kdny),
+                    'asthma' => esc($asthm),
+                    'other_disease' => esc($otrd),
+                    'other_diseasename' => esc($othrdnm)
+                ];
 
-                    $data = [
-                        'emp_id' => esc($eid),
-                        'name' => ucwords(esc($nm)),
-                        'gender' => esc($gn),
-                        'other_gender' => esc($gndr),
-                        'dob' => esc($dob),
-                        'age' => esc(''),
-                        'phone' => esc($phn),
-                        'service_dur' => esc($srvc),
-                        'dept' => esc($dept),
-                        'photo' => esc($newImageName),
-                        'height' => esc($hght),
-                        'weight' => esc($wght),
-                        'blood' => esc($bg),
-                        'diet' => esc($dt),
-                        'diet_name' => esc($dtnm),
-                        'smoking' => esc($smk),
-                        'alcohol' => esc($alchl),
-                        'snuff' => esc($snf),
-                        'allergy' => esc($algr),
-                        'allergy_name' => esc($algrnm),
-                        'diabetes' => esc($dbt),
-                        'bp' => esc($bp),
-                        'heart_disease' => esc($hrt),
-                        'kidney_disease' => esc($kdny),
-                        'asthma' => esc($asthm),
-                        'other_disease' => esc($otrd),
-                        'other_diseasename' => esc($othrdnm)
-                    ];
+                $hmdl = new \App\Models\HealthModel();
+                try {
+                    $query = $hmdl->insert($data);
 
-                    $hmdl = new \App\Models\HealthModel();
-                    try {
-                        $query = $hmdl->insert($data);
-
-                        if ($query) {
-                            $response = ['status' => 'success', 'message' => 'Your Data has been Added Successfully!'];
-                        } else {
-                            $response = ['status' => 'error', 'message' => 'Something went wrong!'];
-                        }
-                        return $this->response->setJSON($response);
-                    } catch (\Exception $e) {
-                        $response = ['status' => 'false', 'message' => 'An unexpected error occurred. Please try again later.'];
-                        return $this->response->setStatusCode(500)->setJSON($response);
+                    if ($query) {
+                        $response = ['status' => 'success', 'message' => 'Your Data has been Added Successfully!'];
+                    } else {
+                        $response = ['status' => 'error', 'message' => 'Something went wrong!'];
                     }
+                    return $this->response->setJSON($response);
+                } catch (\Exception $e) {
+                    $response = ['status' => 'false', 'message' => 'An unexpected error occurred. Please try again later.'];
+                    return $this->response->setStatusCode(500)->setJSON($response);
                 }
             }
         }
+
     }
 
     function validate_EmpId()
@@ -268,6 +270,6 @@ class Home extends BaseController
         return $this->response->setJSON(['valid' => $retVal]);
     }
 
-   
+
 
 }

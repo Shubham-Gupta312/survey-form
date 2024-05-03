@@ -140,7 +140,7 @@ class SuperAdminController extends BaseController
             } else {
                 // echo 'submit';
                 $id = trim($this->request->getPost('id'));
-                $uhid = trim($this->request->getPost('uhid'));
+                $uhid = strtoupper(trim($this->request->getPost('uhid')));
                 $mnt = trim($this->request->getPost('mentrual'));
                 $pcmp = trim($this->request->getPost('pr_comp'));
                 $pst = trim($this->request->getPost('past'));
@@ -169,64 +169,75 @@ class SuperAdminController extends BaseController
                 $lng = $this->request->getFile('upload-lungpdf');
                 $lb = $this->request->getFile('upload-labpdf');
                 $advc = trim($this->request->getPost('advice'));
+                $img = $this->request->getFile('profileimage');
 
-                if ($lng->isValid() && !$lng->hasMoved() && $lb->isValid() && !$lb->hasMoved()) {
+                $data = [];
+                if ($lng->isValid() && $lb->isValid()) {
                     $newlngFileName = $lng->getRandomName();
                     $newpdfName = $lb->getRandomName();
+
                     $lng->move("../public/assets/uploads/lung_report/", $newlngFileName);
                     $lb->move("../public/assets/uploads/lab_report/", $newpdfName);
 
                     $lngpth = "public/assets/uploads/lung_report/" . $lng->getName();
-                    $lbpth = "public/assets/uploads/lung_report/" . $lb->getName();
+                    $lbpth = "public/assets/uploads/lab_report/" . $lb->getName();
 
-                    $data = [
-                        'uhid' => esc($uhid),
-                        'obstetric' => esc($mnt),
-                        'complaints' => esc($pcmp),
-                        'past_history' => esc($pst),
-                        'fam_history' => esc($fhs),
-                        'other' => esc($oth),
-                        'disability' => esc($dft),
-                        'pulse' => esc($pls),
-                        'bp_rprt' => esc($bprt),
-                        'd_vision_left' => esc($dl),
-                        'd_vision_right' => esc($dr),
-                        'n_vision_left' => esc($nl),
-                        'n_vision_right' => esc($nr),
-                        'clr_vision_left' => esc($cl),
-                        'clr_vision_right' => esc($cr),
-                        'crrc_vision_left' => esc($crl),
-                        'crrc_vision_right' => esc($crr),
-                        'respiratory' => esc($rsp),
-                        'cardio' => esc($crd),
-                        'nervous' => esc($nrv),
-                        'abdomen' => esc($abd),
-                        'skin' => esc($skn),
-                        'audiometry' => esc($adm),
-                        'ecg' => esc($ecg),
-                        'chest' => esc($xry),
-                        'thyphoid' => esc($thp),
-                        'lung' => $lngpth,
-                        'lab' => $lbpth,
-                        'advice' => esc($advc),
-                        'updated_at' => date('Y-m-d H:i:s')
-                    ];
-                    // print_r($data); exit;
-                    $hmdl = new \App\Models\HealthModel();
-                    try {
-                        $query = $hmdl->updateData(esc($id), $data);
-                        // print_r($query); exit;
-                        if ($query) {
-                            $response = ['status' => 'success', 'message' => 'Thank you for your cooperation.'];
-                        } else {
-                            $response = ['status' => 'error', 'message' => 'Something went wrong!'];
-                        }
-                        return $this->response->setJSON($response);
-                    } catch (\Exception $e) {
-                        $response = ['status' => 'false', 'message' => 'An unexpected error occurred. Please try again later.'];
-                        return $this->response->setStatusCode(500)->setJSON($response);
+                }
+                $data = [
+                    'uhid' => esc($uhid),
+                    'obstetric' => esc($mnt),
+                    'complaints' => esc($pcmp),
+                    'past_history' => esc($pst),
+                    'fam_history' => esc($fhs),
+                    'other' => esc($oth),
+                    'disability' => esc($dft),
+                    'pulse' => esc($pls),
+                    'bp_rprt' => esc($bprt),
+                    'd_vision_left' => esc($dl),
+                    'd_vision_right' => esc($dr),
+                    'n_vision_left' => esc($nl),
+                    'n_vision_right' => esc($nr),
+                    'clr_vision_left' => esc($cl),
+                    'clr_vision_right' => esc($cr),
+                    'crrc_vision_left' => esc($crl),
+                    'crrc_vision_right' => esc($crr),
+                    'respiratory' => esc($rsp),
+                    'cardio' => esc($crd),
+                    'nervous' => esc($nrv),
+                    'abdomen' => esc($abd),
+                    'skin' => esc($skn),
+                    'audiometry' => esc($adm),
+                    'ecg' => esc($ecg),
+                    'chest' => esc($xry),
+                    'thyphoid' => esc($thp),
+                    'lung' => $lngpth,
+                    'lab' => $lbpth,
+                    'advice' => esc($advc),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ];
+
+                if ($img !== null && $img->isValid() && !$img->hasMoved()) {
+                    $imgNewName = $img->getRandomName();
+                    $img->move("../public/assets/images/uploads/", $imgNewName);
+                    $photo = esc($imgNewName);
+
+                    $data = array_merge($data, ['photo' => $photo]);
+                }
+
+                // print_r($data); exit;
+                $hmdl = new \App\Models\HealthModel();
+                try {
+                    $query = $hmdl->updateData(esc($id), $data);
+                    // print_r($query); exit;
+                    if ($query) {
+                        $response = ['status' => 'success', 'message' => 'Thank you for your cooperation.'];
+                    } else {
+                        $response = ['status' => 'error', 'message' => 'Something went wrong!'];
                     }
-
+                    return $this->response->setJSON($response);
+                } catch (\Exception $e) {
+                    $response = ['status' => 'false', 'message' => 'An unexpected error occurred. Please try again later.'];
+                    return $this->response->setStatusCode(500)->setJSON($response);
                 }
             }
         }

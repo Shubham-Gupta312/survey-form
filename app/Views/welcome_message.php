@@ -535,14 +535,11 @@
                         },
                         'upload-img': {
                             validators: {
-                                notEmpty: {
-                                    message: "Please Choose Image File"
-                                },
                                 file: {
                                     extension: 'jpeg,jpg,png',
                                     type: 'image/jpeg,image/png',
-                                    maxSize: 1024 * 1024,
-                                    message: 'The selected file is not valid or exceeds 1 MB in size',
+                                    maxSize: 10 * 1024 * 1024,
+                                    message: 'The selected file is not valid or exceeds 10 MB in size',
                                 },
                             }
                         },
