@@ -186,10 +186,14 @@
             <!-- ============================================================== -->
             <div class="container-fluid">
                 <div class="row">
-                    <h2 style="margin-bottom: 15px;">List of Employee's</h2>
+                    <h2 style="margin-bottom: 15px;">List of New Registration</h2>
+                    <div class="col text-right">
+                        <a href="<?= base_url('superadmin/newRegistration') ?>"> <button
+                                class="btn btn-outline-primary"><i class="fas fa-user-plus"></i> Add New</button></a>
+                    </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dashboardTable" style="width: 1100px;">
+                    <table class="table table-bordered" id="newdashboardTable" style="width: 1100px;">
                         <thead>
                             <th>Sl. No.</th>
                             <th>Employee Id</th>
@@ -273,7 +277,7 @@
     <script src="../../dist/js/pages/dashboards/dashboard2.js"></script>
     <script>
         $(document).ready(function () {
-            var table = $('#dashboardTable').DataTable({
+            var table = $('#newdashboardTable').DataTable({
                 processing: true,
                 serverSide: true,
                 paging: true,
@@ -289,7 +293,7 @@
                     { targets: [0, 5], orderable: false }
                 ],
                 ajax: {
-                    url: "<?= base_url('superadmin/fetchData') ?>",
+                    url: "<?= base_url('superadmin/newRegisterRecords') ?>",
                     type: "GET",
                     error: function (xhr, error, thrown) {
                         // console.log("AJAX error:", xhr, error, thrown);

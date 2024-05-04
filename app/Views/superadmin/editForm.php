@@ -159,8 +159,8 @@
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="<?= base_url('superadmin/newRegistration') ?>" aria-expanded="false">
-                                <i class="fas fa-user-plus"></i>
+                                href="<?= base_url('superadmin/newMemberDashboard') ?>" aria-expanded="false">
+                                <i class="fas fa-user"></i>
                                 <span class="hide-menu">New Registration</span>
                             </a>
                         </li>
