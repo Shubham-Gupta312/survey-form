@@ -31,6 +31,10 @@
         .help-block {
             color: rgba(var(--bs-danger-rgb));
         }
+
+        .form-check-input[type="checkbox"] {
+            visibility: hidden;
+        }
     </style>
 </head>
 
@@ -157,13 +161,6 @@
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
-                                href="<?= base_url('superadmin/newRegistration') ?>" aria-expanded="false">
-                                <i class="fas fa-user-plus"></i>
-                                <span class="hide-menu">New Registration</span>
-                            </a>
-                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -231,16 +228,16 @@
                                 <div class="col form-group">
                                     <label class="form-label">Employee ID <span class="required">*</span></label>
                                     <input type="text" class="form-control" name="empid" id="empid"
-                                        placeholder="Employee Id" readonly>
+                                        placeholder="Employee Id">
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Full Name <span class="required">*</span></label>
                                     <input type="text" class="form-control" name="name" id="name"
-                                        placeholder="Full Name" readonly>
+                                        placeholder="Full Name">
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Gender <span class="required">*</span></label>
-                                    <select class="form-select" name="gender" id="gender" disabled>
+                                    <select class="form-select" name="gender" id="gender">
                                         <option value="">-- Select --</option>
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
@@ -253,7 +250,7 @@
                                     <label class="form-label">Date of Birth <span class="required">*</span></label>
                                     <div class="input-group">
                                         <input class="form-control border-end-0 pe-0" type="date"
-                                            placeholder="Select Date" required="" name="dob" id="dob" readonly>
+                                            placeholder="Select Date" required="" name="dob" id="dob">
                                         <!-- <span class="input-group-text">
                                             <span class="material-symbols-outlined">calendar_today</span>
                                         </span> -->
@@ -262,24 +259,24 @@
                                 <div class="col form-group">
                                     <label class="form-label">Age</label>
                                     <input type="text" class="form-control" name="age" id="age"
-                                        placeholder="0 years 0 months" disabled readonly>
+                                        placeholder="0 years 0 months">
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Emergency Contact Number <span
                                             class="required">*</span></label>
                                     <input type="tel" class="form-control" placeholder="Contact Number" maxlength="10"
-                                        name="phone" id="phone" readonly>
+                                        name="phone" id="phone">
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Duration of Service <span
                                             class="required">*</span></label>
                                     <input type="text" class="form-control" placeholder="Duration of Service"
-                                        name="service_dur" id="service_dur" readonly>
+                                        name="service_dur" id="service_dur">
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Department <span class="required">*</span></label>
                                     <input type="text" class="form-control" placeholder="Department" name="dept"
-                                        id="dept" readonly>
+                                        id="dept">
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Obstetric / Mentrual History <span
@@ -319,22 +316,18 @@
                             </div>
                             <hr />
                             <div class="pb-3 form-group">
-                                <div class="d-flex align-items-center">
-                                    <div class="me-4">
-                                        <img src="" class="uploaded_photo" alt="Employee Name" name="photo" id="photo"
-                                            style="height: 150px; width: 150px;" />
+                                <div class="custom-upload form-group">
+                                    <input type="file" id="upload-img" name="upload-img" class="inputfile"
+                                        accept=".jpg, .png, .jpeg">
+                                    <label for="upload-img">
+                                        <div class="d-grid">
+                                            <span class="btn btn-outline-primary btn-sm">Select Photo</span>
+                                        </div>
+                                        <small id="txt_flname">No image selected</small>
+                                    </label>
+                                    <div class="invalid-feedback text-danger" id="upload-img_msg">
                                     </div>
-                                    <div class="custom-upload form-group">
-                                        <input type="file" class="inputfile" id="profileimage" name="profileimage"
-                                            accept=".jpg, .png, .jpeg">
-                                        <label for="profileimage">
-                                            <div class="d-grid">
-                                                <span class="btn btn-outline-primary btn-sm">Change Photo</span>
-                                            </div>
-                                        </label>
-                                        <div class="form-text">Less than or equal to 2Mb with white background</div>
-                                    </div>
-
+                                    <div class="form-text">Less than or equal to 2 Mb with white background</div>
                                 </div>
                             </div>
                         </div> <!-- End -->
@@ -347,7 +340,7 @@
                                     <label class="form-label">Height <span class="required">*</span></label>
                                     <div class="input-group">
                                         <input class="form-control" type="text" placeholder="Enter in cm" id="height"
-                                            name="height" readonly>
+                                            name="height">
                                         <span class="input-group-text">cm</span>
                                     </div>
                                 </div>
@@ -355,13 +348,13 @@
                                     <label class="form-label">Weight <span class="required">*</span></label>
                                     <div class="input-group">
                                         <input class="form-control" type="text" placeholder="Enter in kg" name="weight"
-                                            id="weight" readonly>
+                                            id="weight">
                                         <span class="input-group-text">kg</span>
                                     </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Blood Group <span class="required">*</span></label>
-                                    <select class="form-select" name="blood_group" id="blood_group" disabled>
+                                    <select class="form-select" name="blood_group" id="blood_group">
                                         <option value="">-- Select --</option>
                                         <option value="A+">A+ve</option>
                                         <option value="A-">A-ve</option>
@@ -375,7 +368,7 @@
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Diet <span class="required">*</span></label>
-                                    <select class="form-select" id="diet" name="diet" disabled>
+                                    <select class="form-select" id="diet" name="diet">
                                         <option value="">-- Select --</option>
                                         <option value="vegetarian">Vegetarian</option>
                                         <option value="Non-vegetarian">Non-vegetarian</option>
@@ -386,59 +379,55 @@
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Smoking <span class="required">*</span></label> <br>
-                                    <input type="text" id="somking_d" name="somking_d" class="form-control" disabled>
-                                    <!-- <div class="form-check-inline">
+                                    <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="smoke" id="smoke-yes"
-                                            value="yes" disabled>
+                                            value="yes">
                                         <label class="form-check-label" for="smoke-yes">Yes</label>
                                     </div>
                                     <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="smoke" id="smoke-no"
-                                            value="no" disabled>
+                                            value="no">
                                         <label class="form-check-label" for="smoke-no">No</label>
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Alcohol <span class="required">*</span></label> <br>
-                                    <input type="text" name="alcohol_d" id="alcohol_d" class="form-control" disabled>
-                                    <!-- <div class="form-check-inline">
+                                    <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="alcohol" id="alcohol-yes"
-                                            value="yes" disabled>
+                                            value="yes">
                                         <label class="form-check-label" for="alcohol-yes">Yes</label>
                                     </div>
                                     <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="alcohol" id="alcohol-no"
-                                            value="no" disabled>
+                                            value="no">
                                         <label class="form-check-label" for="alcohol-no">No</label>
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Snuff <span class="required">*</span></label> <br>
-                                    <input type="text" name="snuff_d" id="snuff_d" class="form-control" disabled>
-                                    <!-- <div class="form-check-inline">
+                                    <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="snuff" id="snuff-yes"
-                                            value="yes" disabled>
+                                            value="yes">
                                         <label class="form-check-label" for="snuff-yes">Yes</label>
                                     </div>
                                     <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="snuff" id="snuff-no"
-                                            value="no" disabled>
+                                            value="no">
                                         <label class="form-check-label" for="snuff-no">No</label>
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Allergy <span class="required">*</span></label> <br>
-                                    <input type="text" name="allergy_d" id="allergy_d" class="form-control" disabled>
-                                    <!-- <div class="form-check-inline">
+                                    <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="allergy" id="allergy-yes"
-                                            value="yes" disabled>
+                                            value="yes">
                                         <label class="form-check-label" for="snuff-yes">Yes</label>
                                     </div>
                                     <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="allergy" id="allergy-no"
-                                            value="yes" disabled>
+                                            value="yes">
                                         <label class="form-check-label" for="snuff-no">No</label>
-                                    </div> <br> -->
+                                    </div> <br>
 
                                     <!-- <input type="text" class="form-control" placeholder="Enter allergies, if any"> -->
                                 </div>
@@ -449,7 +438,7 @@
                             <div class="row checkup-form__row">
                                 <div class="col form-group">
                                     <textarea class="form-control" placeholder="Please specify allergy"
-                                        name="allergy_name" id="allergy_name" readonly></textarea>
+                                        name="allergy_name" id="allergy_name"></textarea>
                                 </div>
                             </div>
 
@@ -648,10 +637,10 @@
                                             </div>
                                         </label>
                                     </div><br>
-                                    <small id="lpdf">No PDF selected</small> 
-                                    <small class="for-text mr-2">
+                                    <small class="lpdf">No PDF selected</small>
+                                    <!-- <small class="for-text">
                                         <a href="" id="lpdf">PDF</a>
-                                    </small>
+                                    </small> -->
                                     <div class="form-text">Less than or equal to 1Mb</div>
                                 </div>
                                 <div class="col form-group">
@@ -668,10 +657,10 @@
                                             </div>
                                         </label>
                                     </div><br>
-                                    <small id="lbpdf">No PDF selected</small>
-                                    <small class="for-text">
+                                    <small class="lbpdf">No PDF selected</small>
+                                    <!-- <small class="for-text">
                                         <a href="" id="lbpdf">PDF</a>
-                                    </small>
+                                    </small> -->
                                     <div class="form-text">Less than or equal to 1Mb</div>
                                 </div>
 
@@ -686,96 +675,88 @@
                                 <div class="col form-group">
                                     <label class="form-label">Diabetes <span class="normal">(High / Low blood sugar
                                             level)</span> <span class="required">*</span></label> <br>
-                                            <input type="text" id="diabetes_d" class="form-control" name="diabetes_d" disabled>
-                                    <!-- <div class="form-check-inline">
+                                    <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="diabetes" id="diabetes-yes"
-                                            value="yes" disabled>
+                                            value="yes">
                                         <label class="form-check-label" for="diabetes-yes">Yes</label>
                                     </div>
                                     <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="diabetes" id="diabetes-no"
-                                            value="no" disabled>
+                                            value="no">
                                         <label class="form-check-label" for="diabetes-no">No</label>
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Hypertension <span class="normal">(BP- blood pressure
                                             issues)</span> <span class="required">*</span></label> <br>
-                                            <input type="text" id="bp_d" name="bp_d" class="form-control" disabled>
-                                    <!-- <div class="form-check-inline">
-                                        <input class="form-check-input" type="radio" name="bp" id="bp-yes" value="yes"
-                                            disabled>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="radio" name="bp" id="bp-yes" value="yes">
                                         <label class="form-check-label" for="bp-yes">Yes</label>
                                     </div>
                                     <div class="form-check-inline">
-                                        <input class="form-check-input" type="radio" name="bp" id="bp-no" value="no"
-                                            disabled>
+                                        <input class="form-check-input" type="radio" name="bp" id="bp-no" value="no">
                                         <label class="form-check-label" for="bp-no">No</label>
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Heart disease <span class="required">*</span></label> <br>
-                                    <input type="text" name="heart_d" id="heart_d" class="form-control" disabled>
-                                    <!-- <div class="form-check-inline">
+                                    <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="heart" id="heart-yes"
-                                            value="yes" disabled>
+                                            value="yes">
                                         <label class="form-check-label" for="heart-yes">Yes</label>
                                     </div>
                                     <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="heart" id="heart-no"
-                                            value="no" disabled>
+                                            value="no">
                                         <label class="form-check-label" for="heart-no">No</label>
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Kidney disease. <span class="required">*</span></label>
                                     <br>
-                                    <input type="text" id="kidney_d" name="kidney_d" class="form-control" disabled>
-                                    <!-- <div class="form-check-inline">
+                                    <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="kidney" id="kidney-yes"
-                                            value="yes" disabled>
+                                            value="yes">
                                         <label class="form-check-label" for="kidney-yes">Yes</label>
                                     </div>
                                     <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="kidney" id="kidney-no"
-                                            value="no" disabled>
+                                            value="no">
                                         <label class="form-check-label" for="kidney-no">No</label>
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">COPD / Asthma<span class="required">*</span></label> <br>
-                                    <input type="text" name="asthama_d" id="asthama_d" class="form-control" disabled>
-                                    <!-- <div class="form-check-inline">
+                                    <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="asthma" id="asthma-yes"
-                                            value="yes" disabled>
+                                            value="yes">
                                         <label class="form-check-label" for="asthma-yes">Yes</label>
                                     </div>
                                     <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="asthma" id="asthma-no"
-                                            value="no" disabled>
+                                            value="no">
                                         <label class="form-check-label" for="asthma-no">No</label>
-                                    </div> -->
+                                    </div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Others<span class="required">*</span></label> <br>
-                                    <input type="text" name="other_d" id="other_d" class="form-control" disabled>
-                                    <!-- <div class="form-check-inline">
+                                    <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="otherdisease"
-                                            id="otherdisease-yes" value="yes" disabled>
+                                            id="otherdisease-yes" value="yes">
                                         <label class="form-check-label" for="otherdisease-yes">Yes</label>
                                     </div>
                                     <div class="form-check-inline">
                                         <input class="form-check-input" type="radio" name="otherdisease"
-                                            id="otherdisease-no" value="no" disabled>
+                                            id="otherdisease-no" value="no">
                                         <label class="form-check-label" for="otherdisease-no">No</label>
-                                    </div> -->
+                                    </div>
                                 </div>
                             </div>
                             <!-- Form Row -->
                             <div class="row checkup-form__row">
                                 <div class="col form-group">
                                     <textarea class="form-control" id="other_disease" name="other_disease"
-                                        placeholder="Others , please specify" readonly></textarea>
+                                        placeholder="Others , please specify"></textarea>
                                 </div>
                             </div>
                         </div> <!-- End Disease -->
@@ -895,28 +876,37 @@
     <!-- Chart JS -->
     <script src="../../dist/js/pages/dashboards/dashboard2.js"></script>
     <script>
+        $(document).on("change", "#upload-img", function () {
+            if ($(this).val()) {
+                $("#txt_flname").html($(this).val().split('\\').pop());
+            } else {
+                $("#txt_flname").html("No image selected");
+            }
+        });
+
+        $(document).on("change", "#upload-lungpdf", function () {
+            if ($(this).val()) {
+                $(".lpdf").html($(this).val().split('\\').pop());
+            } else {
+                $(".lpdf").html("No PDF selected");
+            }
+        });
+
+        $(document).on("change", "#upload-labpdf", function () {
+            if ($(this).val()) {
+                $(".lbpdf").html($(this).val().split('\\').pop());
+            } else {
+                $(".lbpdf").html("No PDF selected");
+            }
+        });
+    </script>
+    <!-- <script>
         $(document).ready(function () {
             $('body').on('keyup', ".onlyalphanum", function (event) {
                 this.value = this.value.replace(/[^[A-Za-z0-9 ]]*/gi, '');
             });
             $('body').on('keyup', ".anum", function (event) {
                 this.value = this.value.replace(/[^a-zA-z0-9\/]/g, '');
-            });
-
-            $(document).on("change", "#upload-lungpdf", function () {
-                if ($(this).val()) {
-                    $("#lpdf").html($(this).val().split('\\').pop());
-                } else {
-                    $("#lpdf").html("No PDF selected");
-                }
-            });
-
-            $(document).on("change", "#upload-labpdf", function () {
-                if ($(this).val()) {
-                    $("#lbpdf").html($(this).val().split('\\').pop());
-                } else {
-                    $("#lbpdf").html("No PDF selected");
-                }
             });
 
             var urlParams = new URLSearchParams(window.location.search);
@@ -969,40 +959,30 @@
                     $('#xray').val(response.message.chest ? response.message.chest : '');
                     $('#thyphoid').val(response.message.thyphoid ? response.message.thyphoid : '');
                     $('#advice').val(response.message.advice ? response.message.advice : '');
-                    $('#somking_d').val(response.message.smoking ? response.message.smoking : '');
-                    $('#alcohol_d').val(response.message.alcohol ? response.message.alcohol : '');
-                    $('#snuff_d').val(response.message.snuff ? response.message.snuff : '');
-                    $('#allergy_d').val(response.message.allergy ? response.message.allergy : '');
-                    $('#diabetes_d').val(response.message.diabetes ? response.message.diabetes : '');
-                    $('#bp_d').val(response.message.bp ? response.message.bp : '');
-                    $('#heart_d').val(response.message.heart_disease ? response.message.heart_disease : '');
-                    $('#kidney_d').val(response.message.kidney_disease ? response.message.kidney_disease : '');
-                    $('#asthama_d').val(response.message.asthma ? response.message.asthma : '');
-                    $('#other_d').val(response.message.other_disease ? response.message.other_disease : '');
 
-                    if (response.message.lung) {
+                    if(response.message.lung){
                         var dt = response.message.lung;
-                        var msg = "http://localhost/rm_hospital/" + dt;
-                        $('#lpdf').attr('href', msg);
-                    } else {
+                        var msg = "http://localhost/rm_hospital/"+dt;
+                        $('#lpdf').attr('href',msg);
+                    }else{
                         $('#lpdf').hide();
                     }
 
-                    if (response.message.lab) {
+                    if(response.message.lab){
                         var dt = response.message.lab;
-                        var msg = "http://localhost/rm_hospital/" + dt;
-                        $('#lbpdf').attr('href', msg);
-                    } else {
+                        var msg = "http://localhost/rm_hospital/"+dt;
+                        $('#lbpdf').attr('href',msg);
+                    }else{
                         $('#lbpdf').hide();
                     }
 
                     if (response.message.photo) {
                         var imagePath = "../../assets/images/uploads/" + response.message.photo;
-                        $('#photo').attr('src', imagePath);
-                        $('#profileimage').prop('disabled', true);
+                        $('#photo').attr('src', imagePath); 
+                        $('#profileimage').prop(' ', true); 
                     } else {
-                        $('#photo').attr('src', '');
-                        $('#profileimage').prop('disabled', false);
+                        $('#photo').attr('src', ''); 
+                        $('#profileimage').prop(' ', false); 
                     }
 
                     var allergy_name = response.message.allergy_name;
@@ -1010,6 +990,58 @@
 
                     var other_diseasename = response.message.other_diseasename;
                     $('#other_disease').val(other_diseasename)
+
+
+                    if (response.message.smoking === 'Yes') {
+                        $('#smoke-yes').prop('checked', true);
+                    } else {
+                        $('#smoke-no').prop('checked', true);
+                    }
+                    if (response.message.alcohol === 'Yes') {
+                        $('#alcohol-yes').prop('checked', true);
+                    } else {
+                        $('#alcohol-no').prop('checked', true);
+                    }
+                    if (response.message.snuff === 'Yes') {
+                        $('#snuff-yes').prop('checked', true);
+                    } else {
+                        $('#snuff-no').prop('checked', true);
+                    }
+                    if (response.message.allergy === 'Yes') {
+                        $('#allergy-yes').prop('checked', true);
+                    } else {
+                        $('#allergy-no').prop('checked', true);
+                    }
+                    if (response.message.diabetes === 'Yes') {
+                        $('#diabetes-yes').prop('checked', true);
+                    } else {
+                        $('#diabetes-no').prop('checked', true);
+                    }
+                    if (response.message.bp === 'Yes') {
+                        $('#bp-yes').prop('checked', true);
+                    } else {
+                        $('#bp-no').prop('checked', true);
+                    }
+                    if (response.message.heart_disease === 'Yes') {
+                        $('#heart-yes').prop('checked', true);
+                    } else {
+                        $('#heart-no').prop('checked', true);
+                    }
+                    if (response.message.kidney_disease === 'Yes') {
+                        $('#kidney-yes').prop('checked', true);
+                    } else {
+                        $('#kidney-no').prop('checked', true);
+                    }
+                    if (response.message.asthma === 'Yes') {
+                        $('#asthma-yes').prop('checked', true);
+                    } else {
+                        $('#asthma-no').prop('checked', true);
+                    }
+                    if (response.message.other_disease === 'Yes') {
+                        $('#otherdisease-yes').prop('checked', true);
+                    } else {
+                        $('#otherdisease-no').prop('checked', true);
+                    }
 
                     var dob = new Date(response.message.dob);
                     var today = new Date();
@@ -1297,7 +1329,7 @@
 
             });
         });
-    </script>
+    </script> -->
 </body>
 
 </html>

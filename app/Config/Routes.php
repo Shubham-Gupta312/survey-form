@@ -22,6 +22,7 @@ $routes->group('superadmin', static function ($routes) {
     $routes->get('edata', 'SuperAdminController::SuperAdminEditData', ['filter' => 'IsSuperAdmin']);
     $routes->post('editformdata', 'SuperAdminController::SuperAdminEditformdata', ['filter' => 'IsSuperAdmin']);
     $routes->get('validate_UHID', 'SuperAdminController::validateUHID', ['filter' => 'IsSuperAdmin']);
+    $routes->get('newRegistration', 'SuperAdminController::AddNewMember', ['filter' => 'IsSuperAdmin']);
 });
 
 

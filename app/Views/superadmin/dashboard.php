@@ -150,6 +150,13 @@
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                                href="<?= base_url('superadmin/newRegistration') ?>" aria-expanded="false">
+                                <i class="fas fa-user-plus"></i>
+                                <span class="hide-menu">New Registration</span>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -180,9 +187,6 @@
             <div class="container-fluid">
                 <div class="row">
                     <h2 style="margin-bottom: 15px;">List of Employee's</h2>
-                    <div class="col text-right">
-                        <button class="btn btn-outline-success"><i class="fas fa-plus-circle"></i> Add New</button>
-                    </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dashboardTable" style="width: 1100px;">

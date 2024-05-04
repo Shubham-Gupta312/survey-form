@@ -253,4 +253,9 @@ class SuperAdminController extends BaseController
         return $this->response->setJSON(['valid' => $retVal]);
     }
 
+    public function AddNewMember()
+    {
+        return view('superadmin/addnew');
+    }
+
 }
