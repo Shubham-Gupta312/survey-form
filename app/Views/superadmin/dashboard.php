@@ -52,24 +52,24 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="#">
+                    <!-- <a class="navbar-brand" href="#"> -->
                         <!-- Logo icon -->
-                        <b class="logo-icon">
+                        <!-- <b class="logo-icon"> -->
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="../assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                            <!-- <img src="../../assets/images/logo-icon-131x128-1.png" alt="homepage" class="dark-logo" /> -->
                             <!-- Light Logo icon -->
-                            <img src="../assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
-                        </b>
+                            <!-- <img src="../../assets/images/logo-icon-131x128-1.png" alt="homepage" class="light-logo" /> -->
+                        <!-- </b> -->
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <span class="logo-text">
+                        <!-- <span class="logo-text"> -->
                             <!-- dark Logo text -->
-                            <img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                            <!-- <img src="../../assets/images/logo-icon-131x128-1.png" alt="homepage" class="dark-logo" /> -->
                             <!-- Light Logo text -->
-                            <img src="../assets/images/logo-light-text.png" class="light-logo" alt="homepage" />
-                        </span>
-                    </a>
+                            <!-- <img src="../../assets/images/logo-icon-131x128-1.png" class="light-logo" alt="homepage" /> -->
+                        <!-- </span> -->
+                    <!-- </a> -->
                     <!-- ============================================================== -->
                     <!-- End Logo -->
                     <!-- ============================================================== -->
