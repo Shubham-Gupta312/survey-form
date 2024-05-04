@@ -959,11 +959,21 @@
                 }
             });
 
-            $('body').on('keyup', ".onlyalphanum", function (event) {
-                this.value = this.value.replace(/[^[A-Za-z0-9 ]]*/gi, '');
-            });
+           
             $('body').on('keyup', ".anum", function (event) {
                 this.value = this.value.replace(/[^a-zA-z0-9\/]/g, '');
+            });
+            $('body').on('keyup', ".onlychars", function (event) {
+                this.value = this.value.replace(/[^[A-Za-z ]]*/gi, '');
+            });
+            $('body').on('keyup', ".onlynum", function (event) {
+                this.value = this.value.replace(/[^[0-9]]*/gi, '');
+            });
+            $('body').on('keyup', ".onlyalphanum", function (event) {
+                this.value = this.value.replace(/[^[A-Za-z0-9]]*/gi, '');
+            });
+            $('body').on('keyup', ".spcchr", function (event) {
+                this.value = this.value.replace(/[^[A-Za-z0-9,.() ]]*/gi, '');
             });
 
             $('input[name="otherdisease"]').change(function () {
