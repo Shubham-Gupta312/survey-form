@@ -27,6 +27,8 @@ $routes->group('superadmin', static function ($routes) {
     $routes->get('newRegisterRecords', 'SuperAdminController::newRegisterRecords', ['filter' => 'IsSuperAdmin']);
     $routes->get('newRegistration', 'SuperAdminController::AddNewMember', ['filter' => 'IsSuperAdmin']);
     $routes->post('newRegistration', 'SuperAdminController::AddNewMember', ['filter' => 'IsSuperAdmin']);
+    $routes->get('editProfile?(:any)', 'SuperAdminController::editImage/$1', ['filter' => 'IsSuperAdmin']);
+    $routes->post('editProfileImage', 'SuperAdminController::editProfileImage', ['filter' => 'IsSuperAdmin']);
 });
 
 

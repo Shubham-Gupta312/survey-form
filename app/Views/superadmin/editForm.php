@@ -222,7 +222,9 @@
                             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
                                 <div class="col form-group">
                                     <input type="hidden" name="id" id="formEid">
-                                    <label class="form-label">RMH/UHID <span class="required">*</span></label>
+                                    <label class="form-label">RMH/UHID 
+                                        <!-- <span class="required">*</span> -->
+                                    </label>
                                     <input type="text" class="form-control onlyalphanum" name="uhid" id="uhid"
                                         placeholder="RMH/UHID">
                                     <div class="invalid-feedback text-danger" id="uhid_msg">
@@ -1040,9 +1042,9 @@
                     fields: {
                         'uhid': {
                             validators: {
-                                notEmpty: {
-                                    message: "Please enter RMH/UHID"
-                                },
+                                // notEmpty: {
+                                //     message: "Please enter RMH/UHID"
+                                // },
                                 remote: {
                                     message: 'UHID already exist!',
                                     url: "<?= base_url('superadmin/validate_UHID') ?>"
@@ -1108,62 +1110,62 @@
                                 },
                             }
                         },
-                        'd_left': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Distance Vision Left Eye"
-                                },
-                            }
-                        },
-                        'd_right': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Distance Vision Right Eye"
-                                },
-                            }
-                        },
-                        'n_left': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Near Vision Left Eye"
-                                },
-                            }
-                        },
-                        'n_right': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Near Vision Right Eye"
-                                },
-                            }
-                        },
-                        'c_left': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Color Vision Left Eye"
-                                },
-                            }
-                        },
-                        'c_right': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Color Vision Right Eye"
-                                },
-                            }
-                        },
-                        'cr_left': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Correction Left Eye"
-                                },
-                            }
-                        },
-                        'cr_right': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Correction Right Eye"
-                                },
-                            }
-                        },
+                        // 'd_left': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Distance Vision Left Eye"
+                        //         },
+                        //     }
+                        // },
+                        // 'd_right': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Distance Vision Right Eye"
+                        //         },
+                        //     }
+                        // },
+                        // 'n_left': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Near Vision Left Eye"
+                        //         },
+                        //     }
+                        // },
+                        // 'n_right': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Near Vision Right Eye"
+                        //         },
+                        //     }
+                        // },
+                        // 'c_left': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Color Vision Left Eye"
+                        //         },
+                        //     }
+                        // },
+                        // 'c_right': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Color Vision Right Eye"
+                        //         },
+                        //     }
+                        // },
+                        // 'cr_left': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Correction Left Eye"
+                        //         },
+                        //     }
+                        // },
+                        // 'cr_right': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Correction Right Eye"
+                        //         },
+                        //     }
+                        // },
                         'respiratory': {
                             validators: {
                                 notEmpty: {
@@ -1229,9 +1231,9 @@
                         },
                         'upload-lungpdf': {
                             validators: {
-                                notEmpty: {
-                                    message: "Please choose a PDF file"
-                                },
+                                // notEmpty: {
+                                //     message: "Please choose a PDF file"
+                                // },
                                 file: {
                                     extension: 'pdf',
                                     type: 'application/pdf',
@@ -1242,9 +1244,9 @@
                         },
                         'upload-labpdf': {
                             validators: {
-                                notEmpty: {
-                                    message: "Please choose a PDF file"
-                                },
+                                // notEmpty: {
+                                //     message: "Please choose a PDF file"
+                                // },
                                 file: {
                                     extension: 'pdf',
                                     type: 'application/pdf',

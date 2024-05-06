@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+date_default_timezone_set('Asia/Kolkata');
 class SuperAdminController extends BaseController
 {
     public function superadminDashboard()
@@ -25,7 +26,7 @@ class SuperAdminController extends BaseController
             $fd->orderBy($orderColumnName, $orderDir);
 
             $fd->where('is_admin', 0);
-            
+
             if (!empty($searchValue)) {
                 $fd->groupStart();
                 $fd->orLike('emp_id', $searchValue);
@@ -34,7 +35,8 @@ class SuperAdminController extends BaseController
             }
 
             $data['data'] = $fd->findAll($length, $start);
-            $totalRecords = count($data['data']);
+            $totalRecords = $fd->countAll();
+            // $totalRecords = count($data['data']);
             $totalFilterRecords = (!empty($searchValue)) ? $fd->where('emp_id', $searchValue)->orWhere('uhid', $searchValue)->countAllResults() : $totalRecords;
             $associativeArray = [];
 
@@ -49,7 +51,8 @@ class SuperAdminController extends BaseController
                     4 => $row['phone'],
                     5 => '<button class="btn btn-outline-warning"><i class="fas fa-eye"></i></button>
                     <a href="' . base_url('superadmin/editForm?i=') . $row['id'] . '" class="btn btn-outline-primary" id="eform"><i class="far fa-edit"></i></a>
-                    <button class="btn btn-outline-success"><i class="fas fa-file-pdf"></i></button>',
+                    <button class="btn btn-outline-success"><i class="fas fa-file-pdf"></i></button>
+                    <a href="' . base_url('superadmin/editProfile?i=') . $row['id'] . '"><button class="btn btn-outline-info"><i class="fas fa-image"></i></button></a>',
 
                 );
             }
@@ -102,24 +105,25 @@ class SuperAdminController extends BaseController
 
     public function SuperAdminEditformdata()
     {
-        if ($this->request->getMethod() == 'POST') {
-            $validation = $this->validate([
-                'uhid' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
+        if ($_POST) {
+            // print_r($_FILES); exit;
+            $validRule = [
+                'uhid' => 'permit_empty|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'mentrual' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'pr_comp' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'past' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'fam_his' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'defect' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'pulse' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'bp_rprt' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'd_left' => 'required|regex_match[/^[0-9\/\s]+$/]',
-                'd_right' => 'required|regex_match[/^[0-9\/\s]+$/]',
-                'n_left' => 'required|regex_match[/^[0-9\/\s]+$/]',
-                'n_right' => 'required|regex_match[/^[0-9\/\s]+$/]',
-                'c_left' => 'required|regex_match[/^[0-9\/\s]+$/]',
-                'c_right' => 'required|regex_match[/^[0-9\/\s]+$/]',
-                'cr_left' => 'required|regex_match[/^[0-9\/\s]+$/]',
-                'cr_right' => 'required|regex_match[/^[0-9\/\s]+$/]',
+                'bp_rprt' => 'required|regex_match[/^[a-zA-Z0-9\/\s]+$/]',
+                'd_left' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
+                'd_right' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
+                'n_left' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
+                'n_right' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
+                'c_left' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
+                'c_right' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
+                'cr_left' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
+                'cr_right' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
                 'respiratory' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'cardio' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'nervous' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
@@ -129,12 +133,19 @@ class SuperAdminController extends BaseController
                 'ecg' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'xray' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'thyphoid' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'upload-lungpdf' => 'uploaded[upload-lungpdf]|mime_in[upload-lungpdf,application/pdf]|max_size[upload-lungpdf,2048]',
-                'upload-labpdf' => 'uploaded[upload-labpdf]|mime_in[upload-labpdf,application/pdf]|max_size[upload-labpdf,2048]',
+                'upload-lungpdf' => 'mime_in[upload-lungpdf,application/pdf]|max_size[upload-lungpdf,2048]',
+                'upload-labpdf' => 'mime_in[upload-labpdf,application/pdf]|max_size[upload-labpdf,2048]',
                 'advice' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'profileimage' => 'uploaded[profileimage]|max_size[profileimage,2048]|mime_in[image,image/png,image/jpg,image/jpeg]',
+                // 'profileimage' => 'max_size[profileimage,20480]|mime_in[profileimage,image/png,image/jpg,image/jpeg]',
+            ];
 
-            ]);
+            if ($this->request->getFile('profileimage')) {
+                $validRule['profileimage'] = 'max_size[profileimage,10485760]|mime_in[profileimage,image/png,image/jpg,image/jpeg]';
+            }
+
+            $validation = $this->validate($validRule);
+
+
             if (!$validation) {
                 $validation = \Config\Services::validation();
                 $errors = $validation->getErrors();
@@ -143,7 +154,7 @@ class SuperAdminController extends BaseController
             } else {
                 // echo 'submit';
                 $id = trim($this->request->getPost('id'));
-                $uhid = strtoupper(trim($this->request->getPost('uhid')));
+                $uhid = $this->request->getPost('uhid') ? strtoupper(trim($this->request->getPost('uhid'))) : "";
                 $mnt = trim($this->request->getPost('mentrual'));
                 $pcmp = trim($this->request->getPost('pr_comp'));
                 $pst = trim($this->request->getPost('past'));
@@ -174,17 +185,21 @@ class SuperAdminController extends BaseController
                 $advc = trim($this->request->getPost('advice'));
                 $img = $this->request->getFile('profileimage');
 
+
                 $data = [];
                 if ($lng->isValid() && $lb->isValid()) {
                     $newlngFileName = $lng->getRandomName();
                     $newpdfName = $lb->getRandomName();
 
-                    $lng->move("../public/assets/uploads/lung_report/", $newlngFileName);
-                    $lb->move("../public/assets/uploads/lab_report/", $newpdfName);
+                    $lng->move("public/assets/uploads/lung_report/", $newlngFileName);
+                    $lb->move("public/assets/uploads/lab_report/", $newpdfName);
 
                     $lngpth = "public/assets/uploads/lung_report/" . $lng->getName();
                     $lbpth = "public/assets/uploads/lab_report/" . $lb->getName();
 
+                } else {
+                    $lngpth = '';
+                    $lbpth = '';
                 }
                 $data = [
                     'uhid' => esc($uhid),
@@ -221,8 +236,9 @@ class SuperAdminController extends BaseController
 
                 if ($img !== null && $img->isValid() && !$img->hasMoved()) {
                     $imgNewName = $img->getRandomName();
-                    $img->move("../public/assets/images/uploads/", $imgNewName);
-                    $photo = esc($imgNewName);
+                    $img->move("public/uploads/images/", $imgNewName);
+
+                    $photo = esc('public/uploads/images' . $imgNewName);
 
                     $data = array_merge($data, ['photo' => $photo]);
                 }
@@ -265,7 +281,7 @@ class SuperAdminController extends BaseController
     {
         if ($_POST) {
             $validation = $this->validate([
-                'uhid' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
+                'uhid' => 'permit_empty|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'mentrual' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'pr_comp' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'past' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
@@ -273,14 +289,14 @@ class SuperAdminController extends BaseController
                 'defect' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'pulse' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'bp_rprt' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'd_left' => 'required|regex_match[/^[0-9\/\s]+$/]',
-                'd_right' => 'required|regex_match[/^[0-9\/\s]+$/]',
-                'n_left' => 'required|regex_match[/^[0-9\/\s]+$/]',
-                'n_right' => 'required|regex_match[/^[0-9\/\s]+$/]',
-                'c_left' => 'required|regex_match[/^[0-9\/\s]+$/]',
-                'c_right' => 'required|regex_match[/^[0-9\/\s]+$/]',
-                'cr_left' => 'required|regex_match[/^[0-9\/\s]+$/]',
-                'cr_right' => 'required|regex_match[/^[0-9\/\s]+$/]',
+                'd_left' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
+                'd_right' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
+                'n_left' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
+                'n_right' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
+                'c_left' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
+                'c_right' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
+                'cr_left' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
+                'cr_right' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
                 'respiratory' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'cardio' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'nervous' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
@@ -293,7 +309,7 @@ class SuperAdminController extends BaseController
                 'upload-lungpdf' => 'uploaded[upload-lungpdf]|mime_in[upload-lungpdf,application/pdf]|max_size[upload-lungpdf,2048]',
                 'upload-labpdf' => 'uploaded[upload-labpdf]|mime_in[upload-labpdf,application/pdf]|max_size[upload-labpdf,2048]',
                 'advice' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'upload-img' => 'uploaded[upload-img]|max_size[upload-img,2048]|mime_in[upload-img,image/png,image/jpg,image/jpeg]',
+                'upload-img' => 'uploaded[upload-img]|max_size[upload-img,10485760]|mime_in[upload-img,image/png,image/jpg,image/jpeg]',
                 'name' => 'required|regex_match[/^[a-zA-Z\s]+$/]',
                 'emp_id' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'gender' => 'required',
@@ -349,7 +365,7 @@ class SuperAdminController extends BaseController
                 $algrnm = $this->request->getPost('allergy_name') ? ucwords(trim($this->request->getPost('allergy_name'))) : '';
                 $dtnm = $this->request->getPost('diet_name') ? ucwords(trim($this->request->getPost('diet_name'))) : "";
                 $gndr = $this->request->getPost('other_gender') ? ucwords(trim($this->request->getPost('other_gender'))) : "";
-                $uhid = strtoupper(trim($this->request->getPost('uhid')));
+                $uhid = $this->request->getPost('uhid') ? strtoupper(trim($this->request->getPost('uhid'))) : '';
                 $mnt = trim($this->request->getPost('mentrual'));
                 $pcmp = trim($this->request->getPost('pr_comp'));
                 $pst = trim($this->request->getPost('past'));
@@ -384,13 +400,17 @@ class SuperAdminController extends BaseController
                     $lngNewName = $lngpdf->getRandomName();
                     $lbNewName = $lbpdf->getRandomName();
 
-                    $pimg->move('../public/assets/images/uploads/', $imgNewName);
+                    $pimg->move('../public/assets/images', $imgNewName);
                     $lngpdf->move("../public/assets/uploads/lung_report/", $lngNewName);
                     $lbpdf->move("../public/assets/uploads/lab_report/", $lbNewName);
 
-                    $img_pth = "public/assets/images/uploads/" . $imgNewName;
+                    $img_pth =  $imgNewName;
                     $lng_ph = "public/assets/uploads/lung_report/" . $lngpdf->getName();
                     $lb_path = "public/assets/uploads/lab_report/" . $lbpdf->getName();
+                } else {
+                    $img_pth = "";
+                    $lng_ph = "";
+                    $lb_path = "";
                 }
 
                 $data = [
@@ -541,6 +561,65 @@ class SuperAdminController extends BaseController
             log_message('error', 'Error in fetch_data: ' . $e->getMessage());
             // Return an error response
             return $this->response->setJSON(['error' => 'Internal Server Error']);
+        }
+    }
+
+    public function editImage()
+    {
+        return view('superadmin/editImage');
+    }
+
+    public function editProfileImage()
+    {
+        if ($_POST) {
+            // print_r($_FILES); exit;
+            
+            if ($this->request->getFile('profileimage')) {
+                $validRule['profileimage'] = 'uploaded[profileimage]|max_size[profileimage,10485760]|mime_in[profileimage,image/png,image/jpg,image/jpeg]';
+            }
+
+            $validation = $this->validate($validRule);
+
+
+            if (!$validation) {
+                $validation = \Config\Services::validation();
+                $errors = $validation->getErrors();
+                $message = ['status' => 'error', 'data' => 'Validated Form', 'errors' => $errors];
+                return $this->response->setJSON($message);
+            } else {
+                // echo 'submit';
+                $id = trim($this->request->getPost('id'));
+              
+                $img = $this->request->getFile('profileimage');
+
+
+                $data = [];
+               
+                if ($img !== null && $img->isValid() && !$img->hasMoved()) {
+                    $imgNewName = $img->getRandomName();
+                    $img->move("../public/assets/images/", $imgNewName);
+
+                    // $photo = esc('public/uploads/images/' . $imgNewName);
+
+                    $data['photo'] = $imgNewName;
+                }
+
+                // print_r($data); exit;
+                $hmdl = new \App\Models\HealthModel();
+                try {
+                    $query = $hmdl->updateData(esc($id), $data);
+                    // print_r($query); exit;
+                    if ($query) {
+                        $response = ['status' => 'success', 'message' => 'Thank you for your cooperation.'];
+                    } else {
+                        $response = ['status' => 'error', 'message' => 'Something went wrong!'];
+                    }
+                    return $this->response->setJSON($response);
+                } catch (\Exception $e) {
+                    $response = ['status' => 'false', 'message' => 'An unexpected error occurred. Please try again later.'];
+                    return $this->response->setStatusCode(500)->setJSON($response);
+                }
+            }
         }
     }
 
