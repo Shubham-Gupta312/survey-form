@@ -35,8 +35,8 @@ class SuperAdminController extends BaseController
             }
 
             $data['data'] = $fd->findAll($length, $start);
-            $totalRecords = $fd->countAll();
-            // $totalRecords = count($data['data']);
+            // $totalRecords = $fd->countAll();
+            $totalRecords = count($data['data']);
             $totalFilterRecords = (!empty($searchValue)) ? $fd->where('emp_id', $searchValue)->orWhere('uhid', $searchValue)->countAllResults() : $totalRecords;
             $associativeArray = [];
 
