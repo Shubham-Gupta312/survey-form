@@ -23,7 +23,11 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
-
+    <style>
+        table.dataTable {
+            width: 100% !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -53,22 +57,22 @@
                     <!-- Logo -->
                     <!-- ============================================================== -->
                     <!-- <a class="navbar-brand" href="#"> -->
-                        <!-- Logo icon -->
-                        <!-- <b class="logo-icon"> -->
-                            <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                            <!-- Dark Logo icon -->
-                            <!-- <img src="../../assets/images/logo-icon-131x128-1.png" alt="homepage" class="dark-logo" /> -->
-                            <!-- Light Logo icon -->
-                            <!-- <img src="../../assets/images/logo-icon-131x128-1.png" alt="homepage" class="light-logo" /> -->
-                        <!-- </b> -->
-                        <!--End Logo icon -->
-                        <!-- Logo text -->
-                        <!-- <span class="logo-text"> -->
-                            <!-- dark Logo text -->
-                            <!-- <img src="../../assets/images/logo-icon-131x128-1.png" alt="homepage" class="dark-logo" /> -->
-                            <!-- Light Logo text -->
-                            <!-- <img src="../../assets/images/logo-icon-131x128-1.png" class="light-logo" alt="homepage" /> -->
-                        <!-- </span> -->
+                    <!-- Logo icon -->
+                    <!-- <b class="logo-icon"> -->
+                    <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                    <!-- Dark Logo icon -->
+                    <!-- <img src="../../assets/images/logo-icon-131x128-1.png" alt="homepage" class="dark-logo" /> -->
+                    <!-- Light Logo icon -->
+                    <!-- <img src="../../assets/images/logo-icon-131x128-1.png" alt="homepage" class="light-logo" /> -->
+                    <!-- </b> -->
+                    <!--End Logo icon -->
+                    <!-- Logo text -->
+                    <!-- <span class="logo-text"> -->
+                    <!-- dark Logo text -->
+                    <!-- <img src="../../assets/images/logo-icon-131x128-1.png" alt="homepage" class="dark-logo" /> -->
+                    <!-- Light Logo text -->
+                    <!-- <img src="../../assets/images/logo-icon-131x128-1.png" class="light-logo" alt="homepage" /> -->
+                    <!-- </span> -->
                     <!-- </a> -->
                     <!-- ============================================================== -->
                     <!-- End Logo -->
@@ -169,8 +173,11 @@
                 <!-- item-->
                 <!-- <a href="" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a> -->
                 <!-- item-->
-                <a href="<?= base_url('superadmin/logout') ?>" class="link" data-toggle="tooltip" title="Logout"><i
-                        class="mdi mdi-power"></i></a>
+                <div class="container" style="text-align: center; margin: 10px auto;">
+                    <a href="<?= base_url('superadmin/logout') ?>" class="link" data-toggle="tooltip" title="Logout"><i
+                            class="mdi mdi-power" style="font-size: 20px;"></i>
+                    </a>
+                </div>
             </div>
             <!-- End Bottom points-->
         </aside>

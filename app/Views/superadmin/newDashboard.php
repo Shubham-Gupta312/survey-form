@@ -23,7 +23,11 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
 
-
+    <style>
+        table.dataTable {
+            width: 100% !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -169,8 +173,11 @@
                 <!-- item-->
                 <!-- <a href="" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a> -->
                 <!-- item-->
-                <a href="<?= base_url('superadmin/logout') ?>" class="link" data-toggle="tooltip" title="Logout"><i
-                        class="mdi mdi-power"></i></a>
+                <div class="container" style="text-align: center; margin: 10px auto;">
+                    <a href="<?= base_url('superadmin/logout') ?>" class="link" data-toggle="tooltip" title="Logout"><i
+                            class="mdi mdi-power" style="font-size: 20px;"></i>
+                    </a>
+                </div>
             </div>
             <!-- End Bottom points-->
         </aside>

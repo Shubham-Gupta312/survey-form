@@ -180,8 +180,11 @@
                 <!-- item-->
                 <!-- <a href="" class="link" data-toggle="tooltip" title="Email"><i class="mdi mdi-gmail"></i></a> -->
                 <!-- item-->
-                <a href="<?= base_url('superadmin/logout') ?>" class="link" data-toggle="tooltip" title="Logout"><i
-                        class="mdi mdi-power"></i></a>
+                <div class="container" style="text-align: center; margin: 10px auto;">
+                    <a href="<?= base_url('superadmin/logout') ?>" class="link" data-toggle="tooltip" title="Logout"><i
+                            class="mdi mdi-power" style="font-size: 20px;"></i>
+                    </a>
+                </div>
             </div>
             <!-- End Bottom points-->
         </aside>
@@ -959,7 +962,7 @@
                 }
             });
 
-           
+
             $('body').on('keyup', ".anum", function (event) {
                 this.value = this.value.replace(/[^a-zA-z0-9\/]/g, '');
             });

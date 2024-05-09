@@ -49,7 +49,7 @@ class SuperAdminController extends BaseController
                     2 => ucfirst($row['name']),
                     3 => $row['uhid'] ?? '',
                     4 => $row['phone'],
-                    5 => '<button class="btn btn-outline-warning"><i class="fas fa-eye"></i></button>
+                    5 => '<a href="' . base_url('superadmin/viewUserData?i=') . $row['id'] . '" target="_blank"><button class="btn btn-outline-warning" id="view"><i class="fas fa-eye"></i></button></a>
                     <a href="' . base_url('superadmin/editForm?i=') . $row['id'] . '" class="btn btn-outline-primary" id="eform"><i class="far fa-edit"></i></a>
                     <button class="btn btn-outline-success"><i class="fas fa-file-pdf"></i></button>
                     <a href="' . base_url('superadmin/editProfile?i=') . $row['id'] . '"><button class="btn btn-outline-info"><i class="fas fa-image"></i></button></a>',
@@ -404,7 +404,7 @@ class SuperAdminController extends BaseController
                     $lngpdf->move("../public/assets/uploads/lung_report/", $lngNewName);
                     $lbpdf->move("../public/assets/uploads/lab_report/", $lbNewName);
 
-                    $img_pth =  $imgNewName;
+                    $img_pth = $imgNewName;
                     $lng_ph = "public/assets/uploads/lung_report/" . $lngpdf->getName();
                     $lb_path = "public/assets/uploads/lab_report/" . $lbpdf->getName();
                 } else {
@@ -573,7 +573,7 @@ class SuperAdminController extends BaseController
     {
         if ($_POST) {
             // print_r($_FILES); exit;
-            
+
             if ($this->request->getFile('profileimage')) {
                 $validRule['profileimage'] = 'uploaded[profileimage]|max_size[profileimage,10485760]|mime_in[profileimage,image/png,image/jpg,image/jpeg]';
             }
@@ -589,12 +589,12 @@ class SuperAdminController extends BaseController
             } else {
                 // echo 'submit';
                 $id = trim($this->request->getPost('id'));
-              
+
                 $img = $this->request->getFile('profileimage');
 
 
                 $data = [];
-               
+
                 if ($img !== null && $img->isValid() && !$img->hasMoved()) {
                     $imgNewName = $img->getRandomName();
                     $img->move("../public/assets/images/", $imgNewName);
@@ -621,6 +621,16 @@ class SuperAdminController extends BaseController
                 }
             }
         }
+    }
+
+    public function viewUserData()
+    {
+
+        $id = service('request')->getGet('i');
+        $md = new \App\Models\HealthModel();
+        $data['hospital'] = $md->where('id', esc($id))->find();
+
+        return view('superadmin/ViewData', $data);
     }
 
 }
