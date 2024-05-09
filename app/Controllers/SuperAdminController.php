@@ -109,33 +109,35 @@ class SuperAdminController extends BaseController
             // print_r($_FILES); exit;
             $validRule = [
                 'uhid' => 'permit_empty|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'mentrual' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
+                'mentrual' => 'permit_empty|regex_match[/^[a-zA-Z0-9\s]+$/]',
+                'height' => 'required|regex_match[/^[0-9\s]+$/]',
+                'weight' => 'required|regex_match[/^[0-9\s]+$/]',
                 'pr_comp' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'past' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'fam_his' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'defect' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'pulse' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'bp_rprt' => 'required|regex_match[/^[a-zA-Z0-9\/\s]+$/]',
-                'd_left' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
-                'd_right' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
-                'n_left' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
-                'n_right' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
-                'c_left' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
-                'c_right' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
-                'cr_left' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
-                'cr_right' => 'permit_empty|regex_match[/^[0-9\/\s]+$/]',
-                'respiratory' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'cardio' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'nervous' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'abdomen' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'skin' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'audiometry' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'ecg' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'xray' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
-                'thyphoid' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
+                'd_left' => 'permit_empty|regex_match[/^[a-zA-Z-:,0-9\/\s]+$/]',
+                'd_right' => 'permit_empty|regex_match[/^[a-zA-Z-:,0-9\/\s]+$/]',
+                'n_left' => 'permit_empty|regex_match[/^[a-zA-Z-:,0-9\/\s]+$/]',
+                'n_right' => 'permit_empty|regex_match[/^[a-zA-Z-:,0-9\/\s]+$/]',
+                'c_left' => 'permit_empty|regex_match[/^[a-zA-Z-:,0-9\/\s]+$/]',
+                'c_right' => 'permit_empty|regex_match[/^[a-zA-Z-:,0-9\/\s]+$/]',
+                'cr_left' => 'permit_empty|regex_match[/^[a-zA-Z-:,0-9\/\s]+$/]',
+                'cr_right' => 'permit_empty|regex_match[/^[a-zA-Z-:,0-9\/\s]+$/]',
+                'respiratory' => 'required',
+                'cardio' => 'required',
+                'nervous' => 'required',
+                'abdomen' => 'required',
+                'skin' => 'required',
+                'xray' => 'required',
+                'thyphoid' => 'required',
                 'upload-lungpdf' => 'mime_in[upload-lungpdf,application/pdf]|max_size[upload-lungpdf,2048]',
                 'upload-labpdf' => 'mime_in[upload-labpdf,application/pdf]|max_size[upload-labpdf,2048]',
-                'advice' => 'required|regex_match[/^[a-zA-Z0-9\s]+$/]',
+                'audiometry' => 'mime_in[audiometry,application/pdf]|max_size[audiometry,2048]',
+                'ecg' => 'mime_in[ecg,application/pdf]|max_size[ecg,2048]',
+                'advice' => 'required|regex_match[/^[a-zA-Z0-9.,\s]+$/]',
                 // 'profileimage' => 'max_size[profileimage,20480]|mime_in[profileimage,image/png,image/jpg,image/jpeg]',
             ];
 
@@ -157,6 +159,8 @@ class SuperAdminController extends BaseController
                 $uhid = $this->request->getPost('uhid') ? strtoupper(trim($this->request->getPost('uhid'))) : "";
                 $mnt = trim($this->request->getPost('mentrual'));
                 $pcmp = trim($this->request->getPost('pr_comp'));
+                $hgt = trim($this->request->getPost('height'));
+                $wght = trim($this->request->getPost('weight'));
                 $pst = trim($this->request->getPost('past'));
                 $fhs = trim($this->request->getPost('fam_his'));
                 $oth = trim($this->request->getPost('other'));
@@ -176,26 +180,33 @@ class SuperAdminController extends BaseController
                 $nrv = trim($this->request->getPost('nervous'));
                 $abd = trim($this->request->getPost('abdomen'));
                 $skn = trim($this->request->getPost('skin'));
-                $adm = trim($this->request->getPost('audiometry'));
-                $ecg = trim($this->request->getPost('ecg'));
+                $adm = $this->request->getFile('audiometry');
+                $ecg = $this->request->getFile('ecg');
                 $xry = trim($this->request->getPost('xray'));
                 $thp = trim($this->request->getPost('thyphoid'));
                 $lng = $this->request->getFile('upload-lungpdf');
                 $lb = $this->request->getFile('upload-labpdf');
                 $advc = trim($this->request->getPost('advice'));
                 $img = $this->request->getFile('profileimage');
+                $ischeck = trim($this->request->getPost('fittowork'));
 
 
                 $data = [];
-                if ($lng->isValid() && $lb->isValid()) {
+                if ($lng->isValid() && $lb->isValid() && $adm->isValid() && $ecg->isValid()) {
                     $newlngFileName = $lng->getRandomName();
                     $newpdfName = $lb->getRandomName();
+                    $newEcgPdf = $ecg->getRandomName();
+                    $newAdmPdf = $adm->getRandomName();
 
                     $lng->move("public/assets/uploads/lung_report/", $newlngFileName);
                     $lb->move("public/assets/uploads/lab_report/", $newpdfName);
+                    $adm->move("public/assets/uploads/audiometry_report/", $newAdmPdf);
+                    $ecg->move("public/assets/uploads/ecg_report/", $newEcgPdf);
 
                     $lngpth = "public/assets/uploads/lung_report/" . $lng->getName();
                     $lbpth = "public/assets/uploads/lab_report/" . $lb->getName();
+                    $admpth = "public/assets/uploads/audiometry_report/" . $adm->getName();
+                    $ecgpth = "public/assets/uploads/ecg_report/" . $ecg->getName();
 
                 } else {
                     $lngpth = '';
@@ -205,6 +216,8 @@ class SuperAdminController extends BaseController
                     'uhid' => esc($uhid),
                     'obstetric' => esc($mnt),
                     'complaints' => esc($pcmp),
+                    'weight' => esc($wght),
+                    'height' => esc($hgt),
                     'past_history' => esc($pst),
                     'fam_history' => esc($fhs),
                     'other' => esc($oth),
@@ -224,12 +237,13 @@ class SuperAdminController extends BaseController
                     'nervous' => esc($nrv),
                     'abdomen' => esc($abd),
                     'skin' => esc($skn),
-                    'audiometry' => esc($adm),
-                    'ecg' => esc($ecg),
+                    'audiometry' => esc($admpth),
+                    'ecg' => esc($ecgpth),
                     'chest' => esc($xry),
                     'thyphoid' => esc($thp),
                     'lung' => $lngpth,
                     'lab' => $lbpth,
+                    'is_checked' => esc($ischeck),
                     'advice' => esc($advc),
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
