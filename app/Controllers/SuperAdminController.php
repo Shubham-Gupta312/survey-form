@@ -51,7 +51,7 @@ class SuperAdminController extends BaseController
                     4 => $row['phone'],
                     5 => '<a href="' . base_url('superadmin/viewUserData?i=') . $row['id'] . '" target="_blank"><button class="btn btn-outline-warning" id="view"><i class="fas fa-eye"></i></button></a>
                     <a href="' . base_url('superadmin/editForm?i=') . $row['id'] . '" class="btn btn-outline-primary" id="eform"><i class="far fa-edit"></i></a>
-                    <button class="btn btn-outline-success"><i class="fas fa-file-pdf"></i></button>
+                    <a href="' . base_url('superadmin/generatePdf?i=') . $row['id'] . '" target="_blank"><button class="btn btn-outline-success"><i class="fas fa-file-pdf"></i></button></a>
                     <a href="' . base_url('superadmin/editProfile?i=') . $row['id'] . '"><button class="btn btn-outline-info"><i class="fas fa-image"></i></button></a>',
 
                 );
@@ -80,7 +80,10 @@ class SuperAdminController extends BaseController
             // Return an error response
             return $this->response->setJSON(['error' => 'Internal Server Error']);
         }
-    }
+    }   
+
+
+
 
     public function SuperAdminEdit()
     {
@@ -107,6 +110,7 @@ class SuperAdminController extends BaseController
     {
         if ($_POST) {
             // print_r($_FILES); exit;
+            // print_r($_POST); exit;
             $validRule = [
                 'uhid' => 'permit_empty|regex_match[/^[a-zA-Z0-9\s]+$/]',
                 'mentrual' => 'permit_empty|regex_match[/^[a-zA-Z0-9\s]+$/]',
@@ -137,7 +141,9 @@ class SuperAdminController extends BaseController
                 'upload-labpdf' => 'mime_in[upload-labpdf,application/pdf]|max_size[upload-labpdf,2048]',
                 'audiometry' => 'mime_in[audiometry,application/pdf]|max_size[audiometry,2048]',
                 'ecg' => 'mime_in[ecg,application/pdf]|max_size[ecg,2048]',
-                'advice' => 'required|regex_match[/^[a-zA-Z0-9.,\s]+$/]',
+                'advice' => 'permit_empty|regex_match[/^[a-zA-Z0-9.,\s]+$/]',
+                'remarks' => 'permit_empty|regex_match[/^[a-zA-Z0-9.,\s]+$/]',
+                'dctrName' => 'required'
                 // 'profileimage' => 'max_size[profileimage,20480]|mime_in[profileimage,image/png,image/jpg,image/jpeg]',
             ];
 
@@ -175,6 +181,7 @@ class SuperAdminController extends BaseController
                 $cr = trim($this->request->getPost('c_right'));
                 $crl = trim($this->request->getPost('cr_left'));
                 $crr = trim($this->request->getPost('cr_right'));
+                $rmks = trim($this->request->getPost('remarks'));
                 $rsp = trim($this->request->getPost('respiratory'));
                 $crd = trim($this->request->getPost('cardio'));
                 $nrv = trim($this->request->getPost('nervous'));
@@ -189,28 +196,35 @@ class SuperAdminController extends BaseController
                 $advc = trim($this->request->getPost('advice'));
                 $img = $this->request->getFile('profileimage');
                 $ischeck = trim($this->request->getPost('fittowork'));
+                $dctr = trim($this->request->getPost('dctrName'));
 
 
                 $data = [];
+                $lngpth = '';
+                $lbpth = '';
+                $admpth = '';
+                $ecgpth = '';
                 if ($lng->isValid() && $lb->isValid() && $adm->isValid() && $ecg->isValid()) {
                     $newlngFileName = $lng->getRandomName();
                     $newpdfName = $lb->getRandomName();
                     $newEcgPdf = $ecg->getRandomName();
                     $newAdmPdf = $adm->getRandomName();
 
-                    $lng->move("public/assets/uploads/lung_report/", $newlngFileName);
-                    $lb->move("public/assets/uploads/lab_report/", $newpdfName);
-                    $adm->move("public/assets/uploads/audiometry_report/", $newAdmPdf);
-                    $ecg->move("public/assets/uploads/ecg_report/", $newEcgPdf);
+                    $lng->move("../public/uploads/lung_report/", $newlngFileName);
+                    $lb->move("../public/uploads/lab_report/", $newpdfName);
+                    $adm->move("../public/uploads/audiometry_report/", $newAdmPdf);
+                    $ecg->move("../public/uploads/ecg_report/", $newEcgPdf);
 
-                    $lngpth = "public/assets/uploads/lung_report/" . $lng->getName();
-                    $lbpth = "public/assets/uploads/lab_report/" . $lb->getName();
-                    $admpth = "public/assets/uploads/audiometry_report/" . $adm->getName();
-                    $ecgpth = "public/assets/uploads/ecg_report/" . $ecg->getName();
+                    $lngpth = "public/uploads/lung_report/" . $lng->getName();
+                    $lbpth = "public/uploads/lab_report/" . $lb->getName();
+                    $admpth = "public/uploads/audiometry_report/" . $adm->getName();
+                    $ecgpth = "public/uploads/ecg_report/" . $ecg->getName();
 
                 } else {
-                    $lngpth = '';
-                    $lbpth = '';
+                    // $lngpth = '';
+                    // $lbpth = '';
+                    // $admpth = '';
+                    // $ecgpth = '';
                 }
                 $data = [
                     'uhid' => esc($uhid),
@@ -232,32 +246,32 @@ class SuperAdminController extends BaseController
                     'clr_vision_right' => esc($cr),
                     'crrc_vision_left' => esc($crl),
                     'crrc_vision_right' => esc($crr),
+                    'remarks' => esc($rmks),
                     'respiratory' => esc($rsp),
                     'cardio' => esc($crd),
                     'nervous' => esc($nrv),
                     'abdomen' => esc($abd),
                     'skin' => esc($skn),
-                    'audiometry' => esc($admpth),
-                    'ecg' => esc($ecgpth),
+                    'audiometry' => $admpth,
+                    'ecg' => $ecgpth,
                     'chest' => esc($xry),
                     'thyphoid' => esc($thp),
                     'lung' => $lngpth,
                     'lab' => $lbpth,
                     'is_checked' => esc($ischeck),
+                    'doctorName' => esc($dctr),
                     'advice' => esc($advc),
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
 
                 if ($img !== null && $img->isValid() && !$img->hasMoved()) {
                     $imgNewName = $img->getRandomName();
-                    $img->move("public/uploads/images/", $imgNewName);
+                    $img->move("../public/uploads/images/", $imgNewName);
 
                     $photo = esc('public/uploads/images' . $imgNewName);
 
                     $data = array_merge($data, ['photo' => $photo]);
                 }
-
-                // print_r($data); exit;
                 $hmdl = new \App\Models\HealthModel();
                 try {
                     $query = $hmdl->updateData(esc($id), $data);
@@ -279,8 +293,12 @@ class SuperAdminController extends BaseController
     function validateUHID()
     {
         $uid = $this->request->getGet('uhid');
+        $id = $this->request->getGet('id');
         $md = new \App\Models\HealthModel();
-        $isExist = $md->where('uhid', esc($uid))->first();
+        // $isExist = $md->where('uhid', esc($uid))->first();
+        $isExist = $md->where('uhid', esc($uid))
+            ->where('id !=', $id)
+            ->first();
         $retVal = $isExist ? false : true;
 
         return $this->response->setJSON(['valid' => $retVal]);
@@ -643,8 +661,44 @@ class SuperAdminController extends BaseController
         $id = service('request')->getGet('i');
         $md = new \App\Models\HealthModel();
         $data['hospital'] = $md->where('id', esc($id))->find();
+        if (empty($data['hospital'])) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
 
         return view('superadmin/ViewData', $data);
+    }
+    public function generatePdf()
+    {
+        $id = service('request')->getGet('i');
+        $md = new \App\Models\HealthModel();
+        $data['hospital'] = $md->where('id', esc($id))->find();
+
+        if (!$data['hospital']) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $pdf = new \Dompdf\Dompdf();
+        $pdf->set_option('isRemoteEnabled', TRUE);
+        $pdf->loadHtml(view('superadmin/ViewPdf', $data));
+        $pdf->setPaper('A4', 'potrait');
+        $pdf->render();
+
+        $directory = '../public/assets/uploads/generated_report/';
+
+        $pdfName = $data['hospital'][0]['emp_id'] . '_' . $data['hospital'][0]['name'] . '.pdf';
+        $pdfPath = $directory . $pdfName;
+
+        $path = 'public/assets/uploads/generated_report/' . $pdfName;
+
+        file_put_contents($pdfPath, $pdf->output());
+
+        $dataToUpdate = [
+            'generated_pdf' => $path
+        ];
+        $md->update(esc($id), $dataToUpdate);
+
+        $pdf->stream($pdfName);
+
     }
 
 }

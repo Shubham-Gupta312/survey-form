@@ -507,11 +507,20 @@
                     </tr>
                     <tr>
                         <th>Audiometry</th>
-                        <td>: <?= isset($hospital[0]['audiometry']) ? ucwords($hospital[0]['audiometry']) : '' ?></td>
+                        <td>: <?= !empty($hospital[0]['audiometry']) ? 'Enclosed' : '' ?></td>
                     </tr>
+
                     <tr>
                         <th>Electrocardiogram -ECG</th>
-                        <td>: <?= isset($hospital[0]['ecg']) ? ucwords($hospital[0]['ecg']) : '' ?></td>
+                        <td>: <?= !empty($hospital[0]['ecg']) ? 'Enclosed' : '' ?></td>
+                    </tr>
+                    <tr>
+                        <th>Lung Report</th>
+                        <td>: <?= !empty($hospital[0]['lung']) ? 'Enclosed' : '' ?></td>
+                    </tr>
+                    <tr>
+                        <th>Lab Report</th>
+                        <td>: <?= !empty($hospital[0]['lab']) ? 'Enclosed' : '' ?></td>
                     </tr>
                     <tr>
                         <th>Chest X - Ray</th>
@@ -569,19 +578,20 @@
                     <b>Fit to work under specific advice as mentioned above</b>
                 </div>
 
-                <table class="no-border" style="margin-top: 100px;">
+                <table class="no-border" style="margin-top: 80px;">
                     <tr>
-                        <td class="no-border" style="vertical-align: bottom;">
-                            <img src="../assets/images/seal.jpg" />
-                            <h5>Rangadore Memorial Hospital<br> Bangalore - 560 004</h5>
-                        </td>
                         <td width="300" class="no-border">
-                            <div class="center-align">
-                                <img src="../assets/images/sign.jpeg"> <br>
-                                <b>Dr. Suresh Iyer</b> <br>
-                                KMC No : KM209856 <br>
+                            <div class="">
+                                <img id="sign" src="" width="200"> <br>
+                                <b id="dr"></b> <br>
+                                <span id="deg"></span> <br>
+                                <span id="kmc"></span> <br>
                                 Facility Name : Rangadore Memorial Hospital
                             </div>
+                        <!-- </td>
+                        <td class="no-border" style="vertical-align: bottom;"> -->
+                            <img src="../assets/images/seal.jpeg" width="150" style="margin-top: 10px;"/>
+                            <h5>Rangadore Memorial Hospital<br> Bangalore - 560 004</h5>
                         </td>
                     </tr>
                 </table>
@@ -681,6 +691,31 @@
 
                     var ageString = ageYears + ' years ' + ageMonths + ' months';
                     $('#age').text(ageString);
+
+                    var doctorName = response.message.doctorName;
+                    $('#dr').text(doctorName);
+
+                    switch (doctorName) {
+                        case 'Dr. Mamata Patil':
+                            $('#sign').attr('src', '../assets/images/mamata.jpg');
+                            $('#deg').text('MBBS, MPH');
+                            $('#kmc').text('KMC No : 50016');
+                            break;
+                        case 'Dr. Dharani Kumar K S':
+                            $('#sign').attr('src', '../assets/images/sign.jpeg');
+                            $('#deg').text('MBBS, MD, Internal Medicine Consultant Physician');
+                            $('#kmc').text('KMC No : 97149');
+                            break;
+                        case 'Dr. Thripuramba R':
+                            $('#sign').attr('src', '../assets/images/thripurmba.jpg');
+                            $('#deg').text('MBBS');
+                            $('#kmc').text('KMC No : 23963');
+                            break;
+                        default:
+                            $('#sign').attr('src', '');
+                            $('#kmc').text('KMC No : ');
+                            break;
+                    }
 
                 }
             });

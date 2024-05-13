@@ -32,6 +32,17 @@
             color: rgba(var(--bs-danger-rgb));
         }
 
+        .form-check-input[type="radio"] {
+            visibility: hidden;
+        }
+
+        .custom-class [type=radio]:checked:disabled+label:before {
+            border-right: 2px solid green !important;
+            ;
+            border-bottom: 2px solid green !important;
+            ;
+        }
+
         .form-check-input[type="checkbox"] {
             visibility: hidden;
         }
@@ -368,7 +379,7 @@
                                     <label class="form-label">Height <span class="required">*</span></label>
                                     <div class="input-group">
                                         <input class="form-control" type="text" placeholder="Enter in cm" id="height"
-                                            name="height" >
+                                            name="height">
                                         <span class="input-group-text">cm</span>
                                     </div>
                                 </div>
@@ -376,7 +387,7 @@
                                     <label class="form-label">Weight <span class="required">*</span></label>
                                     <div class="input-group">
                                         <input class="form-control" type="text" placeholder="Enter in kg" name="weight"
-                                            id="weight" >
+                                            id="weight">
                                         <span class="input-group-text">kg</span>
                                     </div>
                                 </div>
@@ -581,6 +592,13 @@
                                         id="cr_right">
                                     <div class="invalid-feedback text-danger" id="cr_right_msg">
                                     </div>
+                                </div>
+                            </div>
+                            <div class="pb-4 form-group">
+                                <h4 class="sub-heading">Remarks</h4>
+                                <textarea class="form-control spc_chr" name="remarks" id="remarks"
+                                    placeholder="Remarks"></textarea>
+                                <div class="invalid-feedback text-danger" id="remarks_msg">
                                 </div>
                             </div>
                         </div>
@@ -855,6 +873,32 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input form-control" type="radio" value="Dr. Dharani Kumar K S"
+                                    id="dctrName1" name="dctrName">
+                                <label class="form-check-label" for="dctrName1">
+                                    Dr. Dharani Kumar K S
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input form-control" type="radio" value="Dr. Mamata Patil"
+                                    id="dctrName2" name="dctrName">
+                                <label class="form-check-label" for="dctrName2">
+                                    Dr. Mamata Patil
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input form-control" type="radio" value="Dr. Thripuramba R"
+                                    id="dctrName3" name="dctrName">
+                                <label class="form-check-label" for="dctrName3">
+                                    Dr. Thripuramba R
+                                </label>
+                            </div>
+                            <div class="invalid-feedback text-danger" id="dctrName_msg">
+                            </div>
+                        </div>
+
 
                         <!-- Form Row -->
                         <div class="checkup-form__row">
@@ -876,9 +920,9 @@
                                     <button type="submit" id="submit" name="submit"
                                         class="btn btn-lg btn-primary">Submit</button>
                                 </div>
-                                <!-- <div class="text-center  mt-5">
+                                <div class="text-center  mt-5" id="scsmsg">
                                     <strong>Thank you for your cooperation.</strong>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
 
@@ -958,6 +1002,9 @@
             });
             $('body').on('keyup', ".anum", function (event) {
                 this.value = this.value.replace(/[^a-zA-z-:,0-9\/]/g, '');
+            });
+            $('body').on('keyup', ".spc_chr", function (event) {
+                this.value = this.value.replace(/[^a-zA-z.,0-9 \/]/g, '');
             });
 
             $(document).on("change", "#upload-lungpdf", function () {
@@ -1104,6 +1151,8 @@
                     $('#other_disease').val(other_diseasename)
 
 
+                    var doctorName = response.message.doctorName;
+                    $('input[name="dctrName"][value="' + doctorName + '"]').prop('checked', true);
 
                     var dob = new Date(response.message.dob);
                     var today = new Date();
@@ -1139,7 +1188,15 @@
                                 // },
                                 remote: {
                                     message: 'UHID already exist!',
-                                    url: "<?= base_url('superadmin/validate_UHID') ?>"
+                                    url: "<?= base_url('superadmin/validate_UHID') ?>",
+                                    data: function (validator) {
+                                        return {
+                                            uhid: validator.getFieldElements('uhid').val(),
+                                            id: $('#formEid').val()
+                                        };
+                                    },
+                                    delay: 2000,
+                                    type: 'GET'
                                 },
                             }
                         },
@@ -1373,7 +1430,14 @@
                                     message: 'PLease Enter Advice Remarks'
                                 }
                             }
-                        }
+                        },
+                        'dctrName': {
+                            validators: {
+                                notEmpty: {
+                                    message: 'Please Select a Doctor'
+                                }
+                            }
+                        },
                     },
                 }).on('success.form.bv', function (e) {
                     e.preventDefault();
@@ -1403,7 +1467,7 @@
                                 $('#scsmsg').show().css('color', 'green');
                                 setTimeout(function () {
                                     window.location.href = "<?= base_url('superadmin/dashboard') ?>";
-                                }, 500);
+                                }, 50000);
                             }
                         },
                         error: function (xhr, status, error) {
