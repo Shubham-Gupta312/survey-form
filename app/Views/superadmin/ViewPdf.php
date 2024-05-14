@@ -2,12 +2,38 @@
 function calculateAge($dob)
 {
     $dob = new DateTime($dob);
-    $now = new DateTime(); 
-    $age = $now->diff($dob); 
+    $now = new DateTime();
+    $age = $now->diff($dob);
 
     // Format the age
     $formattedAge = $age->y . ' years ' . $age->m . ' months';
     return $formattedAge;
+}
+
+$degree = '';
+$imgSrc = '';
+$kmc = '';
+if (isset($hospital[0]['doctorName'])) {
+    switch ($hospital[0]['doctorName']) {
+        case 'Dr. Mamata Patil':
+            $degree = 'MBBS, MPH';
+            $kmc = 'KMC No : 50016';
+            $imgSrc = 'http://localhost/rm_hospital/public/assets/images/mamata.jpg';
+            break;
+        case 'Dr. Dharani Kumar K S':
+            $degree = 'MBBS, MD, Internal Medicine Consultant Physician';
+            $kmc = 'KMC No : 97149';
+            $imgSrc = 'http://localhost/rm_hospital/public/assets/images/sign.jpeg';
+            break;
+        case 'Dr. Thripuramba R':
+            $degree = 'MBBS';
+            $kmc = 'KMC No : 23963';
+            $imgSrc = 'http://localhost/rm_hospital/public/assets/images/thripurmba.jpg';
+            break;
+        default:
+            $imgSrc = '';
+            break;
+    }
 }
 ?>
 
@@ -101,7 +127,6 @@ function calculateAge($dob)
 
     <div class="report-container">
         <div class="center-align hospital">
-            <!-- <img src="public/assets/images/RMH.png" style="width: 100%;" /> -->
             <img src="http://localhost/rm_hospital/public/assets/images/RMH.png" style="width: 100%;" />
         </div>
 
@@ -139,64 +164,53 @@ function calculateAge($dob)
                 <td width="100" class="no-border">
                     <?php if (isset($hospital[0]['photo']) && !empty($hospital[0]['photo'])): ?>
                         <img src="<?= 'http://localhost/rm_hospital/public/assets/images/uploads/' . $hospital[0]['photo'] ?>"
-                            width="132" />
+                            width="150" />
                     <?php else: ?>
-                        <img src="http://localhost/rm_hospital/public/assets/images/profile.png" />
+                        <img src="<?= 'http://localhost/rm_hospital/public/assets/images/Profile.png' ?>" width="150" />
                     <?php endif; ?>
 
                 </td>
                 <td class="no-border">
                     <table>
                         <tr>
-                            <td><strong>Name</strong> : <?= isset($hospital[0]['name']) ? $hospital[0]['name'] : '' ?>
-                            </td>
-
+                            <th width="90">Name</th>
+                            <td>: <?= isset($hospital[0]['name']) ? $hospital[0]['name'] : '' ?></td>
                         </tr>
                         <tr>
-                            <td><strong>Gender</strong> :
-                                <?= isset($hospital[0]['gender']) ? $hospital[0]['gender'] : '' ?>
-                            </td>
-
+                            <th>Gender </th>
+                            <td>: <?= isset($hospital[0]['gender']) ? $hospital[0]['gender'] : '' ?></td>
                         </tr>
                         <tr>
-
-                            <td><strong>Date of Birth</strong> :
+                            <th>Date of Birth</th>
+                            <td>:
                                 <?= isset($hospital[0]['dob']) ? date('d M Y', strtotime($hospital[0]['dob'])) : '' ?>
                             </td>
                         </tr>
                         <tr>
-
-                            <td><strong>Age</strong> :
-                                <?= isset($hospital[0]['dob']) ? calculateAge($hospital[0]['dob']) : '' ?>
-                            </td>
+                            <th>Age</th>
+                            <td>: <span id="age"></span></td>
                         </tr>
                     </table>
                 </td>
                 <td class="no-border">
                     <table>
                         <tr>
-
-                            <td><strong>Employee ID</strong> :
-                                <?= isset($hospital[0]['emp_id']) ? $hospital[0]['emp_id'] : '' ?>
-                            </td>
+                            <th width="135">Employee ID </th>
+                            <td>: <?= isset($hospital[0]['emp_id']) ? $hospital[0]['emp_id'] : '' ?> </td>
                         </tr>
                         <tr>
-
-                            <td><strong>Contact Number</strong> :
-                                <?= isset($hospital[0]['phone']) ? $hospital[0]['phone'] : '' ?>
-                            </td>
+                            <th>Contact Number</th>
+                            <td>: <?= isset($hospital[0]['phone']) ? $hospital[0]['phone'] : '' ?></td>
                         </tr>
                         <tr>
-
-                            <td><strong>Duration of Service </strong> :
+                            <th>Duration of Service </th>
+                            <td>:
                                 <?= isset($hospital[0]['service_dur']) ? $hospital[0]['service_dur'] . ' years' : '' ?>
                             </td>
                         </tr>
                         <tr>
-
-                            <td><strong>Department</strong> :
-                                <?= isset($hospital[0]['dept']) ? $hospital[0]['dept'] : '' ?>
-                            </td>
+                            <th>Department</th>
+                            <td>: <?= isset($hospital[0]['dept']) ? $hospital[0]['dept'] : '' ?></td>
                         </tr>
                     </table>
                 </td>
@@ -287,7 +301,7 @@ function calculateAge($dob)
 
         <br>
 
-        <h2>Visual Activity</h2>
+        <h2>Visual Acuity</h2>
         <table>
             <tr>
                 <th width="33%">Vision </th>
@@ -415,19 +429,23 @@ function calculateAge($dob)
             <b>Fit to work under specific advice as mentioned above</b>
         </div>
 
-        <table class="no-border" style="margin-top: 100px;">
+        <table class="no-border" style="margin-top: 80px;">
             <tr>
-                <td class="no-border" style="vertical-align: bottom;">
-                    <img src="http://localhost/rm_hospital/public/assets/images/seal.jpeg" />
-                    <h5>Rangadore Memorial Hospital<br> Bangalore - 560 004</h5>
-                </td>
                 <td width="300" class="no-border">
-                    <div class="center-align">
-                        <img src="http://localhost/rm_hospital/public/assets/images/sign.jpeg"> <br>
-                        <b>Dr. Suresh Iyer</b> <br>
-                        KMC No : KM209856 <br>
+                    <div class="">
+                        <img id="sign" src="<?= $imgSrc ?>" width="200"> <br>
+                        <b
+                            id="dr"><?= isset($hospital[0]['doctorName']) ? ucwords($hospital[0]['doctorName']) : '' ?></b>
+                        <br>
+                        <span id="deg"><?= $degree ?></span> <br>
+                        <span id="kmc"><?= $kmc ?></span> <br>
                         Facility Name : Rangadore Memorial Hospital
                     </div>
+                    <!-- </td>
+                        <td class="no-border" style="vertical-align: bottom;"> -->
+                    <img src="http://localhost/rm_hospital/public/assets/images/seal.jpeg" width="150"
+                        style="margin-top: 10px;" />
+                    <h5>Rangadore Memorial Hospital<br> Bangalore - 560 004</h5>
                 </td>
             </tr>
         </table>

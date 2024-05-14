@@ -31,6 +31,7 @@ $routes->group('superadmin', static function ($routes) {
     $routes->post('editProfileImage', 'SuperAdminController::editProfileImage', ['filter' => 'IsSuperAdmin']);
     $routes->get('viewUserData?(:any)', 'SuperAdminController::viewUserData/$1', ['filter' => 'IsSuperAdmin']);
     $routes->get('generatePdf?(:any)', 'SuperAdminController::generatePdf/$1', ['filter' => 'IsSuperAdmin']);
+    $routes->get('pdf', 'SuperAdminController::viewPdf', ['filter' => 'IsSuperAdmin']);
 });
 
 

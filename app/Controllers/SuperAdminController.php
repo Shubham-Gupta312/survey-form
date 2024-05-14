@@ -36,7 +36,7 @@ class SuperAdminController extends BaseController
             $data['data'] = $fd->findAll($length, $start);
             // $totalRecords = $fd->countAll();
             // $totalRecords = count($data['data']);
-            
+
             // Counting total records without limit and offset
             $totalRecords = $fd->countData();
             // $totalFilterRecords = (!empty($searchValue)) ? $fd->where('emp_id', $searchValue)->orWhere('uhid', $searchValue)->countAllResults() : $totalRecords;
@@ -672,6 +672,11 @@ class SuperAdminController extends BaseController
 
         return view('superadmin/ViewData', $data);
     }
+    public function viewPdf()
+    {
+        return view('superadmin/ViewPdf');
+    }
+
     public function generatePdf()
     {
         $id = service('request')->getGet('i');
