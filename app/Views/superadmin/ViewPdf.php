@@ -188,7 +188,7 @@ if (isset($hospital[0]['doctorName'])) {
                         </tr>
                         <tr>
                             <th>Age</th>
-                            <td>: <span id="age"></span></td>
+                            <td>: <?= isset($hospital[0]['dob']) ? calculateAge($hospital[0]['dob']): '' ?></td>
                         </tr>
                     </table>
                 </td>

@@ -57,8 +57,8 @@ class SuperAdminController extends BaseController
                     5 => '<a href="' . base_url('superadmin/viewUserData?i=') . $row['id'] . '" target="_blank"><button class="btn btn-outline-warning" id="view"><i class="fas fa-eye"></i></button></a>
                     <a href="' . base_url('superadmin/editForm?i=') . $row['id'] . '" class="btn btn-outline-primary" id="eform"><i class="far fa-edit"></i></a>
                     <a href="' . base_url('superadmin/generatePdf?i=') . $row['id'] . '" target="_blank"><button class="btn btn-outline-success"><i class="fas fa-file-pdf"></i></button></a>
-                    <a href="' . base_url('superadmin/editProfile?i=') . $row['id'] . '"><button class="btn btn-outline-info"><i class="fas fa-image"></i></button></a>',
-
+                    <a href="' . base_url('superadmin/editProfile?i=') . $row['id'] . '"><button class="btn btn-outline-info"><i class="fas fa-image"></i></button></a>
+                    <a href="' . base_url('superadmin/editProfile?i=') . $row['id'] . '"><button class="btn btn-outline-dark"><i class="fas fa-file-archive"></i></button></a>',
                 );
             }
 
