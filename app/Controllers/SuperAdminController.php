@@ -33,11 +33,16 @@ class SuperAdminController extends BaseController
                 $fd->orLike('uhid', $searchValue);
                 $fd->groupEnd();
             }
-
             $data['data'] = $fd->findAll($length, $start);
             // $totalRecords = $fd->countAll();
-            $totalRecords = count($data['data']);
-            $totalFilterRecords = (!empty($searchValue)) ? $fd->where('emp_id', $searchValue)->orWhere('uhid', $searchValue)->countAllResults() : $totalRecords;
+            // $totalRecords = count($data['data']);
+            
+            // Counting total records without limit and offset
+            $totalRecords = $fd->countData();
+            // $totalFilterRecords = (!empty($searchValue)) ? $fd->where('emp_id', $searchValue)->orWhere('uhid', $searchValue)->countAllResults() : $totalRecords;
+            // Counting filtered records
+            $totalFilterRecords = $fd->countFilteredData($searchValue);
+
             $associativeArray = [];
 
 
@@ -80,7 +85,7 @@ class SuperAdminController extends BaseController
             // Return an error response
             return $this->response->setJSON(['error' => 'Internal Server Error']);
         }
-    }   
+    }
 
 
 
