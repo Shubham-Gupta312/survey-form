@@ -205,6 +205,13 @@ class Home extends BaseController
                 $dtnm = $this->request->getPost('diet_name') ? ucwords(trim($this->request->getPost('diet_name'))) : "";
                 $gndr = $this->request->getPost('other_gender') ? ucwords(trim($this->request->getPost('other_gender'))) : "";
 
+                $hmdl = new \App\Models\HealthModel();
+                $existingRecord = $hmdl->where('emp_id', $eid)->first();
+                if ($existingRecord) {
+                    $response = ['status' => 'false', 'message' => 'A record with the same Employee ID already exists.'];
+                    return $this->response->setJSON($response);
+                }
+
                 if ($img->isValid() && !$img->hasMoved()) {
                     $newImageName = $img->getRandomName();
                     $img->move("../public/assets/images/uploads/", $newImageName);
@@ -241,7 +248,7 @@ class Home extends BaseController
                     'other_diseasename' => esc($othrdnm)
                 ];
 
-                $hmdl = new \App\Models\HealthModel();
+                // $hmdl = new \App\Models\HealthModel();
                 try {
                     $query = $hmdl->insert($data);
 

@@ -384,6 +384,9 @@
                         <div class="text-center  mt-5">
                             <strong>Thank you for your cooperation.</strong>
                         </div>
+                        <div class="text-center  mt-5" id="exist">
+                            <strong>Record Already Exist!</strong>
+                        </div>
                     </div>
                 </div>
 
@@ -658,6 +661,9 @@
                         contentType: false,
                         success: function (response) {
                             // console.log(response);
+                            if (response.status == 'false'){
+                                $.notify(response.message, "error");
+                            }
                             if (response.status == 'error') {
                                 let error = response.errors;
                                 for (const key in error) {
