@@ -58,7 +58,7 @@ class SuperAdminController extends BaseController
                     <a href="' . base_url('superadmin/editForm?i=') . $row['id'] . '" class="btn btn-outline-primary" id="eform"><i class="far fa-edit"></i></a>
                     <a href="' . base_url('superadmin/generatePdf?i=') . $row['id'] . '" target="_blank"><button class="btn btn-outline-success"><i class="fas fa-file-pdf"></i></button></a>
                     <a href="' . base_url('superadmin/editProfile?i=') . $row['id'] . '"><button class="btn btn-outline-info"><i class="fas fa-image"></i></button></a>
-                    <a href="' . base_url('superadmin/editProfile?i=') . $row['id'] . '"><button class="btn btn-outline-dark"><i class="fas fa-file-archive"></i></button></a>',
+                    <a href="' . base_url('superadmin/zip?i=') . $row['id'] . '"><button class="btn btn-outline-dark"><i class="fas fa-file-archive"></i></button></a>',
                 );
             }
 
@@ -198,6 +198,10 @@ class SuperAdminController extends BaseController
                 $thp = trim($this->request->getPost('thyphoid'));
                 $lng = $this->request->getFile('upload-lungpdf');
                 $lb = $this->request->getFile('upload-labpdf');
+                $lb1 = $this->request->getFile('upload-labpdf1');
+                $lb2 = $this->request->getFile('upload-labpdf2');
+                $lb3 = $this->request->getFile('upload-labpdf3');
+                $lb4 = $this->request->getFile('upload-labpdf4');
                 $advc = trim($this->request->getPost('advice'));
                 $img = $this->request->getFile('profileimage');
                 $ischeck = trim($this->request->getPost('fittowork'));
@@ -207,29 +211,43 @@ class SuperAdminController extends BaseController
                 $data = [];
                 $lngpth = '';
                 $lbpth = '';
+                $lbpth1 = '';
+                $lbpth2 = '';
+                $lbpth3 = '';
+                $lbpth4 = '';
                 $admpth = '';
                 $ecgpth = '';
-                if ($lng->isValid() && $lb->isValid() && $adm->isValid() && $ecg->isValid()) {
+                if (
+                    $lng->isValid() && $lb->isValid() && $adm->isValid() && $ecg->isValid() && $lb1->isValid()
+                    && $lb2->isValid() && $lb3->isValid() && $lb4->isValid()
+                ) {
                     $newlngFileName = $lng->getRandomName();
                     $newpdfName = $lb->getRandomName();
+                    $lb1pdfName = $lb1->getRandomName();
+                    $lb2pdfName = $lb2->getRandomName();
+                    $lb3pdfName = $lb3->getRandomName();
+                    $lb4pdfName = $lb4->getRandomName();
                     $newEcgPdf = $ecg->getRandomName();
                     $newAdmPdf = $adm->getRandomName();
 
                     $lng->move("../public/uploads/lung_report/", $newlngFileName);
                     $lb->move("../public/uploads/lab_report/", $newpdfName);
+                    $lb1->move("../public/uploads/lab_report/", $lb1pdfName);
+                    $lb2->move("../public/uploads/lab_report/", $lb2pdfName);
+                    $lb3->move("../public/uploads/lab_report/", $lb3pdfName);
+                    $lb4->move("../public/uploads/lab_report/", $lb4pdfName);
                     $adm->move("../public/uploads/audiometry_report/", $newAdmPdf);
                     $ecg->move("../public/uploads/ecg_report/", $newEcgPdf);
 
                     $lngpth = "public/uploads/lung_report/" . $lng->getName();
                     $lbpth = "public/uploads/lab_report/" . $lb->getName();
+                    $lbpth1 = "public/uploads/lab_report/" . $lb1->getName();
+                    $lbpth2 = "public/uploads/lab_report/" . $lb2->getName();
+                    $lbpth3 = "public/uploads/lab_report/" . $lb3->getName();
+                    $lbpth4 = "public/uploads/lab_report/" . $lb4->getName();
                     $admpth = "public/uploads/audiometry_report/" . $adm->getName();
                     $ecgpth = "public/uploads/ecg_report/" . $ecg->getName();
 
-                } else {
-                    // $lngpth = '';
-                    // $lbpth = '';
-                    // $admpth = '';
-                    // $ecgpth = '';
                 }
                 $data = [
                     'uhid' => esc($uhid),
@@ -263,6 +281,10 @@ class SuperAdminController extends BaseController
                     'thyphoid' => esc($thp),
                     'lung' => $lngpth,
                     'lab' => $lbpth,
+                    'lab1' => $lbpth1,
+                    'lab2' => $lbpth2,
+                    'lab3' => $lbpth3,
+                    'lab4' => $lbpth4,
                     'is_checked' => esc($ischeck),
                     'doctorName' => esc($dctr),
                     'advice' => esc($advc),
@@ -672,19 +694,19 @@ class SuperAdminController extends BaseController
 
         return view('superadmin/ViewData', $data);
     }
-    public function viewPdf()
-    {
-        return view('superadmin/ViewPdf');
-    }
+    // public function viewPdf()
+    // {
+    //     return view('superadmin/ViewPdf');
+    // }
 
-    public function generatePdf()
+    public function generatePdf($stream = true)
     {
         $id = service('request')->getGet('i');
         $md = new \App\Models\HealthModel();
         $data['hospital'] = $md->where('id', esc($id))->find();
 
         if (!$data['hospital']) {
-            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            //throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
         $pdf = new \Dompdf\Dompdf();
@@ -707,8 +729,74 @@ class SuperAdminController extends BaseController
         ];
         $md->update(esc($id), $dataToUpdate);
 
-        $pdf->stream($pdfName);
+        if ($stream)
+            $pdf->stream($pdfName);
 
     }
+
+
+
+    // public function downloadZip()
+    // {
+    //     $id = service('request')->getGet('i');
+    //     $md = new \App\Models\HealthModel();
+    //     $data = $md->select('audiometry, ecg, lung, lab, generated_pdf')->where('id', $id)->find();
+
+    //     if (empty($data)) {
+    //         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+    //     }
+
+    //     $zip = new \ZipArchive;
+    //     $zipFileName = 'health.zip';
+
+
+    //     print_r($data);
+    // }
+
+    public function downloadZip()
+    {
+        $id = service('request')->getGet('i');
+        $md = new \App\Models\HealthModel();
+        $data = $md->select('audiometry, ecg, lung, lab, generated_pdf')->where('id', $id)->find();
+
+        if (empty($data)) {
+            //throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $zip = new \ZipArchive;
+        $zipFileName = 'health.zip';
+
+        // Create the zip file
+        if ($zip->open($zipFileName, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) !== true) {
+            exit("Cannot create $zipFileName\n");
+        }
+
+        foreach ($data as $row) {
+            if (!empty($row['generated_pdf'])) {
+                $pdfName = 'health_report-ex.pdf';
+                $zip->addFromString($pdfName, $row['generated_pdf']);
+            } else {
+                $this->generatePdf(false);
+                $gp = $md->select('generated_pdf')->where('id', $id)->find();
+                if (!empty($gp['generated_pdf'])) {
+                    $pdfName = 'health_report-gn.pdf';
+                    $zip->addFromString($pdfName, $row['generated_pdf']);
+                }
+            }
+        }
+
+        $zip->close();
+
+        header("Content-type: application/zip");
+        header("Content-Disposition: attachment; filename=$zipFileName");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        readfile("$zipFileName");
+    }
+
+
+
+
+
 
 }
