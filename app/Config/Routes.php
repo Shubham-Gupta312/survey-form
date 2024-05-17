@@ -16,7 +16,7 @@ $routes->group('superadmin', static function ($routes) {
     $routes->post('login', 'AuthController::superadminlogin');
     $routes->get('logout', 'AuthController::superAdminlogout');
 
-    $routes->get('dashboard', 'SuperAdminController::superadminDashboard', ['filter' => 'IsSuperAdmin'],);
+    $routes->get('dashboard', 'SuperAdminController::superadminDashboard', ['filter' => 'IsSuperAdmin'], );
     $routes->get('fetchData', 'SuperAdminController::SuperAdminfetchData', ['filter' => 'IsSuperAdmin']);
     $routes->get('editForm?(:any)', 'SuperAdminController::SuperAdminEdit/$1', ['filter' => 'IsSuperAdmin']);
     $routes->get('edata', 'SuperAdminController::SuperAdminEditData', ['filter' => 'IsSuperAdmin']);
@@ -35,6 +35,15 @@ $routes->group('superadmin', static function ($routes) {
     $routes->get('zip?(:any)', 'SuperAdminController::downloadZip/$1', ['filter' => 'IsSuperAdmin']);
 });
 
+$routes->group('admin', static function ($routes) {
+    $routes->get('register', 'AuthController::register');
+    $routes->post('register', 'AuthController::register');
+    $routes->get('login', 'AuthController::adminLogin');
+    $routes->post('login', 'AuthController::adminLogin');
+    $routes->get('logout', 'AuthController::Adminlogout');
 
-$routes->get('admin/register', 'AuthController::register');
-$routes->get('admin/login', 'AuthController::login');
+    $routes->get('dashboard', 'AdminController::adminDashboard', ['filter' => 'IsAdmin']);
+    $routes->get('adminfetchdata', 'AdminController::AdminfetchData', ['filter' => 'IsAdmin']);
+    $routes->get('viewUserData?(:any)', 'AdminController::viewUserData/$1', ['filter' => 'IsAdmin']);
+    $routes->get('zip?(:any)', 'AdminController::downloadZip/$1', ['filter' => 'IsAdmin']);
+});

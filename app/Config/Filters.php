@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Filters\IsAdminFilter;
 use App\Filters\IsSuperAdminFilter;
 use CodeIgniter\Config\Filters as BaseFilters;
 use CodeIgniter\Filters\Cors;
@@ -36,6 +37,7 @@ class Filters extends BaseFilters
         'pagecache'     => PageCache::class,
         'performance'   => PerformanceMetrics::class,
         'IsSuperAdmin' =>  IsSuperAdminFilter::class,
+        'IsAdmin'      =>  IsAdminFilter::class,
     ];
 
     /**

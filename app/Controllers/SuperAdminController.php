@@ -699,14 +699,14 @@ class SuperAdminController extends BaseController
     //     return view('superadmin/ViewPdf');
     // }
 
-    public function generatePdf($stream = true)
+    public function generatePdf($id, $stream = true)
     {
         $id = service('request')->getGet('i');
         $md = new \App\Models\HealthModel();
         $data['hospital'] = $md->where('id', esc($id))->find();
-
+        // print_r($data['hospital']); exit;
         if (!$data['hospital']) {
-            //throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
         $pdf = new \Dompdf\Dompdf();
@@ -729,74 +729,64 @@ class SuperAdminController extends BaseController
         ];
         $md->update(esc($id), $dataToUpdate);
 
-        if ($stream)
+        if ($stream) {
             $pdf->stream($pdfName);
-
+        }
     }
-
-
-
-    // public function downloadZip()
-    // {
-    //     $id = service('request')->getGet('i');
-    //     $md = new \App\Models\HealthModel();
-    //     $data = $md->select('audiometry, ecg, lung, lab, generated_pdf')->where('id', $id)->find();
-
-    //     if (empty($data)) {
-    //         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
-    //     }
-
-    //     $zip = new \ZipArchive;
-    //     $zipFileName = 'health.zip';
-
-
-    //     print_r($data);
-    // }
-
     public function downloadZip()
     {
         $id = service('request')->getGet('i');
         $md = new \App\Models\HealthModel();
-        $data = $md->select('audiometry, ecg, lung, lab, generated_pdf')->where('id', $id)->find();
-
+        $data = $md->select('audiometry, ecg, lung, lab, lab1, lab2, lab3, lab4, generated_pdf')->where('id', $id)->first();
+    
         if (empty($data)) {
-            //throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
-
+    
         $zip = new \ZipArchive;
-        $zipFileName = 'health.zip';
-
-        // Create the zip file
+        $zipFileName = date('Ymd_His') . '.zip';
+    
         if ($zip->open($zipFileName, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) !== true) {
             exit("Cannot create $zipFileName\n");
         }
-
-        foreach ($data as $row) {
-            if (!empty($row['generated_pdf'])) {
-                $pdfName = 'health_report-ex.pdf';
-                $zip->addFromString($pdfName, $row['generated_pdf']);
+    
+        $pdf = $this->generatePdf($id, false);
+    
+        $pdfdata = $md->select('generated_pdf')->where('id', $id)->first();
+        if (!empty($pdfdata['generated_pdf'])) {
+            $filePath = '../' . $pdfdata['generated_pdf'];
+            if (file_exists($filePath)) {
+                $zip->addFile($filePath, basename($filePath));
             } else {
-                $this->generatePdf(false);
-                $gp = $md->select('generated_pdf')->where('id', $id)->find();
-                if (!empty($gp['generated_pdf'])) {
-                    $pdfName = 'health_report-gn.pdf';
-                    $zip->addFromString($pdfName, $row['generated_pdf']);
+                error_log("File does not exist: $filePath");
+            }
+        } else {
+            throw new \RuntimeException("Generated PDF not found for ID: $id");
+        }
+    
+        $files = ['audiometry', 'ecg', 'lung', 'lab', 'lab1', 'lab2', 'lab3', 'lab4'];
+        foreach ($files as $file) {
+            if (!empty($data[$file])) {
+                $filePath = '../' . $data[$file];
+                if (file_exists($filePath)) {
+                    $zip->addFile($filePath, ucwords($file) . '.' . pathinfo($filePath, PATHINFO_EXTENSION));
+                } else {
+                    error_log("File does not exist: $filePath");
                 }
             }
         }
-
+    
         $zip->close();
-
+    
         header("Content-type: application/zip");
         header("Content-Disposition: attachment; filename=$zipFileName");
         header("Pragma: no-cache");
         header("Expires: 0");
-        readfile("$zipFileName");
+        readfile($zipFileName);
+    
+        unlink($zipFileName);
     }
-
-
-
-
+    
 
 
 }
