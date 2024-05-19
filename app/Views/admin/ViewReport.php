@@ -509,6 +509,11 @@ if (isset($hospital[0]['doctorName'])) {
                 <td><?= isset($hospital[0]['crrc_vision_right']) ? $hospital[0]['crrc_vision_right'] : '' ?>
                 </td>
             </tr>
+            <tr>
+                <td>Remarks</td>
+                <td colspan="2"><?= isset($hospital[0]['remarks']) ? $hospital[0]['remarks'] : '' ?></td>
+
+            </tr>
         </table>
 
         <br>
@@ -606,7 +611,9 @@ if (isset($hospital[0]['doctorName'])) {
         <br>
 
         <div>
-            <b>Fit to work under specific advice as mentioned above</b>
+            <?php if ($hospital[0]['is_checked'] == '1'): ?>
+                <b>Fit to work under specific advice as mentioned above</b>
+            <?php endif; ?>
         </div>
 
         <table class="no-border" style="margin-top: 80px;">
