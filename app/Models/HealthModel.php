@@ -9,7 +9,12 @@ class HealthModel extends Model
     protected $table = 'rmh';
     protected $primaryKey = 'id';
     protected $protectFields = [];
-
+    public function getDataById($id)
+    {
+        return $this->asArray()
+            ->where(['id' => $id])
+            ->first();
+    }
     public function updateData($id, $data)
     {
         return $this->update($id, $data);

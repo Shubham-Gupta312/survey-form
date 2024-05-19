@@ -671,17 +671,16 @@
                                             accept=".pdf">
                                         <div class="invalid-feedback text-danger" id="audiometry_msg">
                                         </div>
-                                        <label for="audiometry">
+                                        <label for="audiometry" id="audiometry_label">
                                             <div class="d-grid">
                                                 <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
                                             </div>
                                         </label>
+                                        <a id="view_pdf" class="btn btn-outline-primary btn-sm" style="display:none;"
+                                            target="_blank">View PDF</a>
                                     </div><br>
                                     <small id="adm_nm">No PDF selected</small>
-                                    <small class="for-text">
-                                        <a href="" id="admpdf" target="_blank">PDF</a>
-                                    </small>
-                                    <div class="form-text">Less than or equal to 1Mb</div>
+                                    <div class="form-text" id="adm">Less than or equal to 1Mb</div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Electrocardiogram -ECG
@@ -692,17 +691,16 @@
                                         <input type="file" class="inputfile" name="ecg" id="ecg" accept=".pdf">
                                         <div class="invalid-feedback text-danger" id="ecg_msg">
                                         </div>
-                                        <label for="ecg">
+                                        <label for="ecg" id="ecg_label">
                                             <div class="d-grid">
                                                 <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
                                             </div>
                                         </label>
+                                        <a id="eview_pdf" class="btn btn-outline-primary btn-sm" style="display:none;"
+                                            target="_blank">View PDF</a>
                                     </div><br>
                                     <small id="ecg_nm">No PDF selected</small>
-                                    <small class="for-text">
-                                        <a href="" id="ecgpdf" target="_blank">PDF</a>
-                                    </small>
-                                    <div class="form-text">Less than or equal to 1Mb</div>
+                                    <div class="form-text" id="ecgd">Less than or equal to 1Mb</div>
                                 </div>
 
                                 <div class="col form-group">
@@ -715,17 +713,16 @@
                                             accept=".pdf">
                                         <div class="invalid-feedback text-danger" id="upload-lungpdf_msg">
                                         </div>
-                                        <label for="upload-lungpdf">
+                                        <label for="upload-lungpdf" id="lng_label">
                                             <div class="d-grid">
                                                 <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
                                             </div>
                                         </label>
+                                        <a id="lview_pdf" class="btn btn-outline-primary btn-sm" style="display:none;"
+                                            target="_blank">View PDF</a>
                                     </div><br>
                                     <small id="lpdf_nm">No PDF selected</small>
-                                    <small class="for-text">
-                                        <a href="" id="lpdf" target="_blank">PDF</a>
-                                    </small>
-                                    <div class="form-text">Less than or equal to 1Mb</div>
+                                    <div class="form-text" id="ltxt">Less than or equal to 1Mb</div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Lab Investigation
@@ -737,17 +734,16 @@
                                             accept=".pdf">
                                         <div class="invalid-feedback text-danger" id="upload-labpdf_msg">
                                         </div>
-                                        <label for="upload-labpdf">
+                                        <label for="upload-labpdf" id="lb_label">
                                             <div class="d-grid">
                                                 <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
                                             </div>
                                         </label>
+                                        <a id="lbview_pdf" class="btn btn-outline-primary btn-sm" style="display:none;"
+                                            target="_blank">View PDF</a>
                                     </div><br>
                                     <small id="lbpdf_nm">No PDF selected</small>
-                                    <small class="for-text">
-                                        <a href="" id="lbpdf" target="_blank">PDF</a>
-                                    </small>
-                                    <div class="form-text">Less than or equal to 1Mb</div>
+                                    <div class="form-text" id="lbtxt">Less than or equal to 1Mb</div>
                                 </div>
                                 <!-- 4 more lab pdf -->
                                 <div class="col form-group">
@@ -760,17 +756,17 @@
                                             accept=".pdf">
                                         <div class="invalid-feedback text-danger" id="upload-labpdf1_msg">
                                         </div>
-                                        <label for="upload-labpdf1">
+                                        <label for="upload-labpdf1" id="lb1">
                                             <div class="d-grid">
                                                 <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
                                             </div>
                                         </label>
+                                        <a id="lb1view_pdf" class="btn btn-outline-primary btn-sm" style="display:none;"
+                                            target="_blank">View PDF</a>
                                     </div><br>
                                     <small id="lbpdf1_nm">No PDF selected</small>
-                                    <small class="for-text">
-                                        <a href="" id="lbpdf1" target="_blank">PDF</a>
-                                    </small>
-                                    <div class="form-text">Less than or equal to 1Mb</div>
+
+                                    <div class="form-text" id="lb1txt">Less than or equal to 1Mb</div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Lab Investigation 2
@@ -782,17 +778,17 @@
                                             accept=".pdf">
                                         <div class="invalid-feedback text-danger" id="upload-labpdf2_msg">
                                         </div>
-                                        <label for="upload-labpdf2">
+                                        <label for="upload-labpdf2" id="lb2">
                                             <div class="d-grid">
                                                 <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
                                             </div>
                                         </label>
+                                        <a id="lb2view_pdf" class="btn btn-outline-primary btn-sm" style="display:none;"
+                                            target="_blank">View PDF</a>
                                     </div><br>
                                     <small id="lbpdf2_nm">No PDF selected</small>
-                                    <small class="for-text">
-                                        <a href="" id="lbpdf2" target="_blank">PDF</a>
-                                    </small>
-                                    <div class="form-text">Less than or equal to 1Mb</div>
+
+                                    <div class="form-text" id="lb2txt">Less than or equal to 1Mb</div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Lab Investigation 3
@@ -804,17 +800,17 @@
                                             accept=".pdf">
                                         <div class="invalid-feedback text-danger" id="upload-labpdf3_msg">
                                         </div>
-                                        <label for="upload-labpdf3">
+                                        <label for="upload-labpdf3" id="lb3">
                                             <div class="d-grid">
                                                 <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
                                             </div>
                                         </label>
+                                        <a id="lb3view_pdf" class="btn btn-outline-primary btn-sm" style="display:none;"
+                                            target="_blank">View PDF</a>
                                     </div><br>
                                     <small id="lbpdf3_nm">No PDF selected</small>
-                                    <small class="for-text">
-                                        <a href="" id="lbpdf3" target="_blank">PDF</a>
-                                    </small>
-                                    <div class="form-text">Less than or equal to 1Mb</div>
+
+                                    <div class="form-text" id="lb3txt">Less than or equal to 1Mb</div>
                                 </div>
                                 <div class="col form-group">
                                     <label class="form-label">Lab Investigation 4
@@ -826,17 +822,17 @@
                                             accept=".pdf">
                                         <div class="invalid-feedback text-danger" id="upload-labpdf4_msg">
                                         </div>
-                                        <label for="upload-labpdf4">
+                                        <label for="upload-labpdf4" id="lb4">
                                             <div class="d-grid">
                                                 <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
                                             </div>
                                         </label>
+                                        <a id="lb4view_pdf" class="btn btn-outline-primary btn-sm" style="display:none;"
+                                            target="_blank">View PDF</a>
                                     </div><br>
                                     <small id="lbpdf4_nm">No PDF selected</small>
-                                    <small class="for-text">
-                                        <a href="" id="lbpdf4" target="_blank">PDF</a>
-                                    </small>
-                                    <div class="form-text">Less than or equal to 1Mb</div>
+
+                                    <div class="form-text" id="lb4txt">Less than or equal to 1Mb</div>
                                 </div>
 
                             </div>
@@ -1218,62 +1214,93 @@
                     if (response.message.lung) {
                         var dt = response.message.lung;
                         var msg = "<?= base_url() ?>" + dt;
-                        $('#lpdf').attr('href', msg);
+
+                        $('#upload-lungpdf').hide();
+                        $('#lng_label').hide();
+
+                        $('#lview_pdf').attr('href', msg).show();
+                        $('#lpdf_nm').hide();
+                        $('#ltxt').hide();
                     }
-                    else {
-                        $('#lpdf').hide();
-                    }
+
 
                     if (response.message.lab) {
                         var dt = response.message.lab;
                         var msg = "http://localhost/rm_hospital/" + dt;
-                        $('#lbpdf').attr('href', msg);
-                    } else {
-                        $('#lbpdf').hide();
+                        $('#upload-labpdf').hide();
+                        $('#lb_label').hide();
+
+                        $('#lbview_pdf').attr('href', msg).show();
+                        $('#lbpdf_nm').hide();
+                        $('#lbtxt').hide();
                     }
+
                     if (response.message.lab1) {
                         var dt = response.message.lab1;
                         var msg = "http://localhost/rm_hospital/" + dt;
-                        $('#lbpdf1').attr('href', msg);
-                    } else {
-                        $('#lbpdf1').hide();
+                        $('#upload-labpdf1').hide();
+                        $('#lb1').hide();
+
+                        $('#lb1view_pdf').attr('href', msg).show();
+                        $('#lbpdf1_nm').hide();
+                        $('#lb1txt').hide();
                     }
-                    if (response.message.lab1) {
+
+                    if (response.message.lab2) {
                         var dt = response.message.lab2;
                         var msg = "http://localhost/rm_hospital/" + dt;
-                        $('#lbpdf2').attr('href', msg);
-                    } else {
-                        $('#lbpdf2').hide();
+                        $('#upload-labpdf2').hide();
+                        $('#lb2').hide();
+
+                        $('#lb2view_pdf').attr('href', msg).show();
+                        $('#lbpdf2_nm').hide();
+                        $('#lb2txt').hide();
                     }
+
                     if (response.message.lab3) {
                         var dt = response.message.lab3;
                         var msg = "http://localhost/rm_hospital/" + dt;
-                        $('#lbpdf3').attr('href', msg);
-                    } else {
-                        $('#lbpdf3').hide();
+                        $('#upload-labpdf3').hide();
+                        $('#lb3').hide();
+
+                        $('#lb3view_pdf').attr('href', msg).show();
+                        $('#lbpdf3_nm').hide();
+                        $('#lb3txt').hide();
                     }
+
                     if (response.message.lab4) {
                         var dt = response.message.lab4;
                         var msg = "http://localhost/rm_hospital/" + dt;
-                        $('#lbpdf4').attr('href', msg);
-                    } else {
-                        $('#lbpdf4').hide();
+                        $('#upload-labpdf4').hide();
+                        $('#lb4').hide();
+
+                        $('#lb4view_pdf').attr('href', msg).show();
+                        $('#lbpdf4_nm').hide();
+                        $('#lb4txt').hide();
                     }
 
                     if (response.message.audiometry) {
                         var dt = response.message.audiometry;
                         var msg = "http://localhost/rm_hospital/" + dt;
-                        $('#admpdf').attr('href', msg);
-                    } else {
-                        $('#admpdf').hide();
+
+                        $('#audiometry').hide();
+                        $('#audiometry_label').hide();
+
+                        $('#view_pdf').attr('href', msg).show();
+                        $('#adm_nm').hide();
+                        $('#adm').hide();
                     }
 
                     if (response.message.ecg) {
                         var dt = response.message.ecg;
                         var msg = "http://localhost/rm_hospital/" + dt;
-                        $('#ecgpdf').attr('href', msg);
-                    } else {
-                        $('#ecgpdf').hide();
+
+                        $('#ecg').hide();
+                        $('#ecg_label').hide();
+
+                        $('#eview_pdf').attr('href', msg).show();
+                        $('#ecg_nm').hide();
+                        $('#ecgd').hide();
                     }
 
                     if (response.message.photo) {
@@ -1612,7 +1639,7 @@
                                 $('#scsmsg').show().css('color', 'green');
                                 setTimeout(function () {
                                     window.location.href = "<?= base_url('superadmin/dashboard') ?>";
-                                }, 50000);
+                                }, 5000);
                             }
                         },
                         error: function (xhr, status, error) {

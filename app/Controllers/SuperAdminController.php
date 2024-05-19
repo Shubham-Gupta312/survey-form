@@ -207,48 +207,69 @@ class SuperAdminController extends BaseController
                 $ischeck = trim($this->request->getPost('fittowork'));
                 $dctr = trim($this->request->getPost('dctrName'));
 
-
                 $data = [];
-                $lngpth = '';
-                $lbpth = '';
-                $lbpth1 = '';
-                $lbpth2 = '';
-                $lbpth3 = '';
-                $lbpth4 = '';
-                $admpth = '';
-                $ecgpth = '';
-                if (
-                    $lng->isValid() && $lb->isValid() && $adm->isValid() && $ecg->isValid() && $lb1->isValid()
-                    && $lb2->isValid() && $lb3->isValid() && $lb4->isValid()
-                ) {
+
+                $hmdl = new \App\Models\HealthModel();
+                $currentData = $hmdl->getDataById($id);
+                
+                $lngpth = $currentData['lung'] ?? '';
+                $lbpth = $currentData['lab'] ?? '';
+                $lbpth1 = $currentData['lab1'] ?? '';
+                $lbpth2 = $currentData['lab2'] ?? '';
+                $lbpth3 = $currentData['lab3'] ?? '';
+                $lbpth4 = $currentData['lab4'] ?? '';
+                $admpth = $currentData['audiometry'] ?? '';
+                $ecgpth = $currentData['ecg'] ?? '';
+               
+               
+                if (empty($lngpth) && $lng->isValid()) {
                     $newlngFileName = $lng->getRandomName();
-                    $newpdfName = $lb->getRandomName();
-                    $lb1pdfName = $lb1->getRandomName();
-                    $lb2pdfName = $lb2->getRandomName();
-                    $lb3pdfName = $lb3->getRandomName();
-                    $lb4pdfName = $lb4->getRandomName();
-                    $newEcgPdf = $ecg->getRandomName();
-                    $newAdmPdf = $adm->getRandomName();
-
                     $lng->move("../public/uploads/lung_report/", $newlngFileName);
-                    $lb->move("../public/uploads/lab_report/", $newpdfName);
-                    $lb1->move("../public/uploads/lab_report/", $lb1pdfName);
-                    $lb2->move("../public/uploads/lab_report/", $lb2pdfName);
-                    $lb3->move("../public/uploads/lab_report/", $lb3pdfName);
-                    $lb4->move("../public/uploads/lab_report/", $lb4pdfName);
-                    $adm->move("../public/uploads/audiometry_report/", $newAdmPdf);
-                    $ecg->move("../public/uploads/ecg_report/", $newEcgPdf);
-
-                    $lngpth = "public/uploads/lung_report/" . $lng->getName();
-                    $lbpth = "public/uploads/lab_report/" . $lb->getName();
-                    $lbpth1 = "public/uploads/lab_report/" . $lb1->getName();
-                    $lbpth2 = "public/uploads/lab_report/" . $lb2->getName();
-                    $lbpth3 = "public/uploads/lab_report/" . $lb3->getName();
-                    $lbpth4 = "public/uploads/lab_report/" . $lb4->getName();
-                    $admpth = "public/uploads/audiometry_report/" . $adm->getName();
-                    $ecgpth = "public/uploads/ecg_report/" . $ecg->getName();
-
+                    $lngpth = "public/uploads/lung_report/" . $newlngFileName;
                 }
+                
+                if (empty($lbpth) && $lb->isValid()) {
+                    $newpdfName = $lb->getRandomName();
+                    $lb->move("../public/uploads/lab_report/", $newpdfName);
+                    $lbpth = "public/uploads/lab_report/" . $newpdfName;
+                }
+                
+                if (empty($lbpth1) && $lb1->isValid()) {
+                    $lb1pdfName = $lb1->getRandomName();
+                    $lb1->move("../public/uploads/lab_report/", $lb1pdfName);
+                    $lbpth1 = "public/uploads/lab_report/" . $lb1pdfName;
+                }
+                
+                if (empty($lbpth2) && $lb2->isValid()) {
+                    $lb2pdfName = $lb2->getRandomName();
+                    $lb2->move("../public/uploads/lab_report/", $lb2pdfName);
+                    $lbpth2 = "public/uploads/lab_report/" . $lb2pdfName;
+                }
+                
+                if (empty($lbpth3) && $lb3->isValid()) {
+                    $lb3pdfName = $lb3->getRandomName();
+                    $lb3->move("../public/uploads/lab_report/", $lb3pdfName);
+                    $lbpth3 = "public/uploads/lab_report/" . $lb3pdfName;
+                }
+                
+                if (empty($lbpth4) && $lb4->isValid()) {
+                    $lb4pdfName = $lb4->getRandomName();
+                    $lb4->move("../public/uploads/lab_report/", $lb4pdfName);
+                    $lbpth4 = "public/uploads/lab_report/" . $lb4pdfName;
+                }
+                
+                if (empty($admpth) && $adm->isValid()) {
+                    $newAdmPdf = $adm->getRandomName();
+                    $adm->move("../public/uploads/audiometry_report/", $newAdmPdf);
+                    $admpth = "public/uploads/audiometry_report/" . $newAdmPdf;
+                }
+                
+                if (empty($ecgpth) && $ecg->isValid()) {
+                    $newEcgPdf = $ecg->getRandomName();
+                    $ecg->move("../public/uploads/ecg_report/", $newEcgPdf);
+                    $ecgpth = "public/uploads/ecg_report/" . $newEcgPdf;
+                }
+                
                 $data = [
                     'uhid' => esc($uhid),
                     'obstetric' => esc($mnt),
@@ -290,7 +311,7 @@ class SuperAdminController extends BaseController
                     'advice' => esc($advc),
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
-
+                
                 if ($img !== null && $img->isValid() && !$img->hasMoved()) {
                     $imgNewName = $img->getRandomName();
                     $img->move("../public/uploads/images/", $imgNewName);
@@ -299,7 +320,8 @@ class SuperAdminController extends BaseController
 
                     $data = array_merge($data, ['photo' => $photo]);
                 }
-                $hmdl = new \App\Models\HealthModel();
+                // echo '<pre>';
+                // print_r($data); exit;
                 try {
                     $query = $hmdl->updateData(esc($id), $data);
                     // print_r($query); exit;

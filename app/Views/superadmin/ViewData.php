@@ -478,6 +478,11 @@
                         <td><?= isset($hospital[0]['crrc_vision_right']) ? $hospital[0]['crrc_vision_right'] : '' ?>
                         </td>
                     </tr>
+                    <tr>
+                        <td>Remarks</td>
+                        <td><?= isset($hospital[0]['remarks']) ? $hospital[0]['remarks'] : '' ?></td>
+
+                    </tr>
                 </table>
 
                 <br>
@@ -575,7 +580,9 @@
                 <br>
 
                 <div>
-                    <b>Fit to work under specific advice as mentioned above</b>
+                    <?php if ($hospital[0]['is_checked'] == '1'): ?>
+                        <b>Fit to work under specific advice as mentioned above</b>
+                    <?php endif; ?>
                 </div>
 
                 <table class="no-border" style="margin-top: 80px;">
@@ -588,9 +595,9 @@
                                 <span id="kmc"></span> <br>
                                 Facility Name : Rangadore Memorial Hospital
                             </div>
-                        <!-- </td>
+                            <!-- </td>
                         <td class="no-border" style="vertical-align: bottom;"> -->
-                            <img src="../assets/images/seal.jpeg" width="150" style="margin-top: 10px;"/>
+                            <img src="../assets/images/seal.jpeg" width="150" style="margin-top: 10px;" />
                             <h5>Rangadore Memorial Hospital<br> Bangalore - 560 004</h5>
                         </td>
                     </tr>
