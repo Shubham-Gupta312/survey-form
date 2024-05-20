@@ -35,6 +35,17 @@
         .form-check-input[type="checkbox"] {
             visibility: hidden;
         }
+
+        .form-check-input[type="radio"] {
+            visibility: hidden;
+        }
+
+        .custom-class [type=radio]:checked:disabled+label:before {
+            border-right: 2px solid green !important;
+            ;
+            border-bottom: 2px solid green !important;
+            ;
+        }
     </style>
 </head>
 
@@ -228,8 +239,7 @@
                             <h4 class="sub-heading">Personal History</h4>
                             <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
                                 <div class="col form-group">
-                                    <input type="hidden" name="id" id="formEid">
-                                    <label class="form-label">RMH/UHID <span class="required">*</span></label>
+                                    <label class="form-label">RMH/UHID </label>
                                     <input type="text" class="form-control onlyalphanum" name="uhid" id="uhid"
                                         placeholder="RMH/UHID">
                                     <div class="invalid-feedback text-danger" id="uhid_msg">
@@ -306,8 +316,7 @@
                                     </div>
                                 </div>
                                 <div class="col form-group">
-                                    <label class="form-label">Obstetric / Mentrual History <span
-                                            class="required">*</span></label>
+                                    <label class="form-label">Obstetric / Mentrual History </label>
                                     <input type="text" class="form-control onlyalphanum"
                                         placeholder="Obstetric / Mentrual History" name="mentrual" id="mentrual">
                                     <div class="invalid-feedback text-danger" id="mentrual_msg">
@@ -508,8 +517,8 @@
                                     </div>
                                     <div class="col form-group">
                                         <label class="form-label">BP<span class="required">*</span></label>
-                                        <input class="form-control onlyalphanum" type="text" placeholder="BP"
-                                            name="bp_rprt" id="bp_rprt">
+                                        <input class="form-control anum" type="text" placeholder="BP" name="bp_rprt"
+                                            id="bp_rprt">
                                         <div class="invalid-feedback text-danger" id="bp_rprt_msg">
                                         </div>
                                     </div>
@@ -600,6 +609,13 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="pb-4 form-group">
+                                    <h4 class="sub-heading">Remarks</h4>
+                                    <textarea class="form-control spc_chr" name="remarks" id="remarks"
+                                        placeholder="Remarks"></textarea>
+                                    <div class="invalid-feedback text-danger" id="remarks_msg">
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- ======= Health Information Section======= -->
@@ -607,114 +623,233 @@
                                 <h4 class="sub-heading">Systemic Examination</h4>
                                 <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3">
                                     <div class="col form-group">
-                                        <label class="form-label">Respiratory System <span
-                                                class="required">*</span></label>
-                                        <input class="form-control onlyalphanum" type="text"
-                                            placeholder="Respiratory System" name="respiratory" id="respiratory">
+                                        <label class="form-label">Respiratory System
+                                            <span class="required">*</span>
+                                        </label>
+                                        <input class="form-control" type="text" placeholder="Respiratory System"
+                                            name="respiratory" id="respiratory">
                                         <div class="invalid-feedback text-danger" id="respiratory_msg">
                                         </div>
                                     </div>
                                     <div class="col form-group">
-                                        <label class="form-label">Cardio - Vascular System<span
-                                                class="required">*</span></label>
-                                        <input class="form-control onlyalphanum" type="text"
-                                            placeholder="Cardio - Vascular System" name="cardio" id="cardio">
+                                        <label class="form-label">Cardio - Vascular System
+                                            <span class="required">*</span>
+                                        </label>
+                                        <input class="form-control" type="text" placeholder="Cardio - Vascular System"
+                                            name="cardio" id="cardio">
                                         <div class="invalid-feedback text-danger" id="cardio_msg">
                                         </div>
                                     </div>
                                     <div class="col form-group">
                                         <label class="form-label">Central Nervous System<span
                                                 class="required">*</span></label>
-                                        <input class="form-control onlyalphanum" type="text"
-                                            placeholder="Central Nervous System" name="nervous" id="nervous">
+                                        <input class="form-control" type="text" placeholder="Central Nervous System"
+                                            name="nervous" id="nervous">
                                         <div class="invalid-feedback text-danger" id="nervous_msg">
                                         </div>
                                     </div>
                                     <div class="col form-group">
                                         <label class="form-label">Abdomen<span class="required">*</span></label>
-                                        <input class="form-control onlyalphanum" type="text" placeholder="Abdomen"
-                                            name="abdomen" id="abdomen">
+                                        <input class="form-control" type="text" placeholder="Abdomen" name="abdomen"
+                                            id="abdomen">
                                         <div class="invalid-feedback text-danger" id="abdomen_msg">
                                         </div>
                                     </div>
                                     <div class="col form-group">
                                         <label class="form-label">Skin<span class="required">*</span></label>
-                                        <input class="form-control onlyalphanum" type="text" placeholder="Skin"
-                                            name="skin" id="skin">
+                                        <input class="form-control" type="text" placeholder="Skin" name="skin"
+                                            id="skin">
                                         <div class="invalid-feedback text-danger" id="skin_msg">
                                         </div>
                                     </div>
-                                    <div class="col form-group">
-                                        <label class="form-label">Audiometry<span class="required">*</span></label>
-                                        <input class="form-control onlyalphanum" type="text" placeholder="Audiometry"
-                                            name="audiometry" id="audiometry">
-                                        <div class="invalid-feedback text-danger" id="audiometry_msg">
-                                        </div>
-                                    </div>
-                                    <div class="col form-group">
-                                        <label class="form-label">Electrocardiogram -ECG<span
-                                                class="required">*</span></label>
-                                        <input class="form-control onlyalphanum" type="text"
-                                            placeholder="Electrocardiogram -ECG" name="ecg" id="ecg">
-                                        <div class="invalid-feedback text-danger" id="ecg_msg">
-                                        </div>
-                                    </div>
+
                                     <div class="col form-group">
                                         <label class="form-label">Chest X - Ray<span class="required">*</span></label>
-                                        <input class="form-control onlyalphanum" type="text" placeholder="Chest X - Ray"
-                                            name="xray" id="xray">
+                                        <input class="form-control" type="text" placeholder="Chest X - Ray" name="xray"
+                                            id="xray">
                                         <div class="invalid-feedback text-danger" id="xray_msg">
                                         </div>
                                     </div>
                                     <div class="col form-group">
                                         <label class="form-label">Thyphoid Vaccine<span
                                                 class="required">*</span></label>
-                                        <input class="form-control onlyalphanum" type="text"
-                                            placeholder="Thyphoid Vaccine" name="thyphoid" id="thyphoid">
+                                        <input class="form-control" type="text" placeholder="Thyphoid Vaccine"
+                                            name="thyphoid" id="thyphoid">
                                         <div class="invalid-feedback text-danger" id="thyphoid_msg">
                                         </div>
                                     </div>
                                     <div class="col form-group">
-                                        <label class="form-label">Lung Function Test <span
-                                                class="required">*</span></label>
+                                        <label class="form-label">Audiometry
+                                            <!-- <span class="required">*</span> -->
+                                        </label>
+                                        <br>
+                                        <div class="custom-upload">
+                                            <input type="file" class="inputfile" name="audiometry" id="audiometry"
+                                                accept=".pdf">
+                                            <div class="invalid-feedback text-danger" id="audiometry_msg">
+                                            </div>
+                                            <label for="audiometry" id="audiometry_label">
+                                                <div class="d-grid">
+                                                    <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
+                                                </div>
+                                            </label>
+                                            <a id="view_pdf" class="btn btn-outline-primary btn-sm"
+                                                style="display:none;" target="_blank">View PDF</a>
+                                        </div><br>
+                                        <small id="adm_nm">No PDF selected</small>
+                                        <div class="form-text" id="adm">Less than or equal to 1Mb</div>
+                                    </div>
+                                    <div class="col form-group">
+                                        <label class="form-label">Electrocardiogram -ECG
+                                            <!-- <span class="required">*</span> -->
+                                        </label>
+                                        <br>
+                                        <div class="custom-upload">
+                                            <input type="file" class="inputfile" name="ecg" id="ecg" accept=".pdf">
+                                            <div class="invalid-feedback text-danger" id="ecg_msg">
+                                            </div>
+                                            <label for="ecg" id="ecg_label">
+                                                <div class="d-grid">
+                                                    <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
+                                                </div>
+                                            </label>
+                                            <a id="eview_pdf" class="btn btn-outline-primary btn-sm"
+                                                style="display:none;" target="_blank">View PDF</a>
+                                        </div><br>
+                                        <small id="ecg_nm">No PDF selected</small>
+                                        <div class="form-text" id="ecgd">Less than or equal to 1Mb</div>
+                                    </div>
+
+                                    <div class="col form-group">
+                                        <label class="form-label">Lung Function Test
+                                            <!-- <span class="required">*</span> -->
+                                        </label>
                                         <br>
                                         <div class="custom-upload">
                                             <input type="file" class="inputfile" name="upload-lungpdf"
                                                 id="upload-lungpdf" accept=".pdf">
                                             <div class="invalid-feedback text-danger" id="upload-lungpdf_msg">
                                             </div>
-                                            <label for="upload-lungpdf">
+                                            <label for="upload-lungpdf" id="lng_label">
                                                 <div class="d-grid">
                                                     <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
                                                 </div>
                                             </label>
+                                            <a id="lview_pdf" class="btn btn-outline-primary btn-sm"
+                                                style="display:none;" target="_blank">View PDF</a>
                                         </div><br>
-                                        <small class="lpdf">No PDF selected</small>
-                                        <!-- <small class="for-text">
-                                        <a href="" id="lpdf">PDF</a>
-                                    </small> -->
-                                        <div class="form-text">Less than or equal to 1Mb</div>
+                                        <small id="lpdf_nm">No PDF selected</small>
+                                        <div class="form-text" id="ltxt">Less than or equal to 1Mb</div>
                                     </div>
                                     <div class="col form-group">
-                                        <label class="form-label">Lab Investigation <span
-                                                class="required">*</span></label>
+                                        <label class="form-label">Lab Investigation
+                                            <!-- <span class="required">*</span> -->
+                                        </label>
                                         <br>
                                         <div class="custom-upload">
                                             <input type="file" class="inputfile" id="upload-labpdf" name="upload-labpdf"
                                                 accept=".pdf">
                                             <div class="invalid-feedback text-danger" id="upload-labpdf_msg">
                                             </div>
-                                            <label for="upload-labpdf">
+                                            <label for="upload-labpdf" id="lb_label">
                                                 <div class="d-grid">
                                                     <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
                                                 </div>
                                             </label>
+                                            <a id="lbview_pdf" class="btn btn-outline-primary btn-sm"
+                                                style="display:none;" target="_blank">View PDF</a>
                                         </div><br>
-                                        <small class="lbpdf">No PDF selected</small>
-                                        <!-- <small class="for-text">
-                                        <a href="" id="lbpdf">PDF</a>
-                                    </small> -->
-                                        <div class="form-text">Less than or equal to 1Mb</div>
+                                        <small id="lbpdf_nm">No PDF selected</small>
+                                        <div class="form-text" id="lbtxt">Less than or equal to 1Mb</div>
+                                    </div>
+                                    <!-- 4 more lab pdf -->
+                                    <div class="col form-group">
+                                        <label class="form-label">Lab Investigation 1
+                                            <!-- <span class="required">*</span> -->
+                                        </label>
+                                        <br>
+                                        <div class="custom-upload">
+                                            <input type="file" class="inputfile" id="upload-labpdf1"
+                                                name="upload-labpdf1" accept=".pdf">
+                                            <div class="invalid-feedback text-danger" id="upload-labpdf1_msg">
+                                            </div>
+                                            <label for="upload-labpdf1" id="lb1">
+                                                <div class="d-grid">
+                                                    <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
+                                                </div>
+                                            </label>
+                                            <a id="lb1view_pdf" class="btn btn-outline-primary btn-sm"
+                                                style="display:none;" target="_blank">View PDF</a>
+                                        </div><br>
+                                        <small id="lbpdf1_nm">No PDF selected</small>
+
+                                        <div class="form-text" id="lb1txt">Less than or equal to 1Mb</div>
+                                    </div>
+                                    <div class="col form-group">
+                                        <label class="form-label">Lab Investigation 2
+                                            <!-- <span class="required">*</span> -->
+                                        </label>
+                                        <br>
+                                        <div class="custom-upload">
+                                            <input type="file" class="inputfile" id="upload-labpdf2"
+                                                name="upload-labpdf2" accept=".pdf">
+                                            <div class="invalid-feedback text-danger" id="upload-labpdf2_msg">
+                                            </div>
+                                            <label for="upload-labpdf2" id="lb2">
+                                                <div class="d-grid">
+                                                    <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
+                                                </div>
+                                            </label>
+                                            <a id="lb2view_pdf" class="btn btn-outline-primary btn-sm"
+                                                style="display:none;" target="_blank">View PDF</a>
+                                        </div><br>
+                                        <small id="lbpdf2_nm">No PDF selected</small>
+
+                                        <div class="form-text" id="lb2txt">Less than or equal to 1Mb</div>
+                                    </div>
+                                    <div class="col form-group">
+                                        <label class="form-label">Lab Investigation 3
+                                            <!-- <span class="required">*</span> -->
+                                        </label>
+                                        <br>
+                                        <div class="custom-upload">
+                                            <input type="file" class="inputfile" id="upload-labpdf3"
+                                                name="upload-labpdf3" accept=".pdf">
+                                            <div class="invalid-feedback text-danger" id="upload-labpdf3_msg">
+                                            </div>
+                                            <label for="upload-labpdf3" id="lb3">
+                                                <div class="d-grid">
+                                                    <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
+                                                </div>
+                                            </label>
+                                            <a id="lb3view_pdf" class="btn btn-outline-primary btn-sm"
+                                                style="display:none;" target="_blank">View PDF</a>
+                                        </div><br>
+                                        <small id="lbpdf3_nm">No PDF selected</small>
+
+                                        <div class="form-text" id="lb3txt">Less than or equal to 1Mb</div>
+                                    </div>
+                                    <div class="col form-group">
+                                        <label class="form-label">Lab Investigation 4
+                                            <!-- <span class="required">*</span> -->
+                                        </label>
+                                        <br>
+                                        <div class="custom-upload">
+                                            <input type="file" class="inputfile" id="upload-labpdf4"
+                                                name="upload-labpdf4" accept=".pdf">
+                                            <div class="invalid-feedback text-danger" id="upload-labpdf4_msg">
+                                            </div>
+                                            <label for="upload-labpdf4" id="lb4">
+                                                <div class="d-grid">
+                                                    <span class="btn btn-outline-primary btn-sm">Upload PDF</span>
+                                                </div>
+                                            </label>
+                                            <a id="lb4view_pdf" class="btn btn-outline-primary btn-sm"
+                                                style="display:none;" target="_blank">View PDF</a>
+                                        </div><br>
+                                        <small id="lbpdf4_nm">No PDF selected</small>
+
+                                        <div class="form-text" id="lb4txt">Less than or equal to 1Mb</div>
                                     </div>
 
                                 </div>
@@ -835,6 +970,31 @@
                                     <label class="form-check-label" for="fittowork">
                                         Fit to work under specific advice as mentioned above
                                     </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input form-control" type="radio"
+                                        value="Dr. Dharani Kumar K S" id="dctrName1" name="dctrName">
+                                    <label class="form-check-label" for="dctrName1">
+                                        Dr. Dharani Kumar K S
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input form-control" type="radio" value="Dr. Mamata Patil"
+                                        id="dctrName2" name="dctrName">
+                                    <label class="form-check-label" for="dctrName2">
+                                        Dr. Mamata Patil
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input form-control" type="radio" value="Dr. Thripuramba R"
+                                        id="dctrName3" name="dctrName">
+                                    <label class="form-check-label" for="dctrName3">
+                                        Dr. Thripuramba R
+                                    </label>
+                                </div>
+                                <div class="invalid-feedback text-danger" id="dctrName_msg">
                                 </div>
                             </div>
 
@@ -961,11 +1121,66 @@
                     $(".lbpdf").html("No PDF selected");
                 }
             });
-
-
-            $('body').on('keyup', ".anum", function (event) {
-                this.value = this.value.replace(/[^a-zA-z0-9\/]/g, '');
+            $(document).on("change", "#upload-lungpdf", function () {
+                if ($(this).val()) {
+                    $("#lpdf_nm").html($(this).val().split('\\').pop());
+                } else {
+                    $("#lpdf_nm").html("No PDF selected");
+                }
             });
+
+            $(document).on("change", "#upload-labpdf", function () {
+                if ($(this).val()) {
+                    $("#lbpdf_nm").html($(this).val().split('\\').pop());
+                } else {
+                    $("#lbpdf_nm").html("No PDF selected");
+                }
+            });
+            $(document).on("change", "#upload-labpdf1", function () {
+                if ($(this).val()) {
+                    $("#lbpdf1_nm").html($(this).val().split('\\').pop());
+                } else {
+                    $("#lbpdf1_nm").html("No PDF selected");
+                }
+            });
+            $(document).on("change", "#upload-labpdf2", function () {
+                if ($(this).val()) {
+                    $("#lbpdf2_nm").html($(this).val().split('\\').pop());
+                } else {
+                    $("#lbpdf2_nm").html("No PDF selected");
+                }
+            });
+            $(document).on("change", "#upload-labpdf3", function () {
+                if ($(this).val()) {
+                    $("#lbpdf3_nm").html($(this).val().split('\\').pop());
+                } else {
+                    $("#lbpdf3_nm").html("No PDF selected");
+                }
+            });
+            $(document).on("change", "#upload-labpdf4", function () {
+                if ($(this).val()) {
+                    $("#lbpdf4_nm").html($(this).val().split('\\').pop());
+                } else {
+                    $("#lbpdf4_nm").html("No PDF selected");
+                }
+            });
+
+            $(document).on("change", "#audiometry", function () {
+                if ($(this).val()) {
+                    $("#adm_nm").html($(this).val().split('\\').pop());
+                } else {
+                    $("#adm_nm").html("No PDF selected");
+                }
+            });
+
+            $(document).on("change", "#ecg", function () {
+                if ($(this).val()) {
+                    $("#ecg_nm").html($(this).val().split('\\').pop());
+                } else {
+                    $("#ecg_nm").html("No PDF selected");
+                }
+            });
+
             $('body').on('keyup', ".onlychars", function (event) {
                 this.value = this.value.replace(/[^[A-Za-z ]]*/gi, '');
             });
@@ -973,10 +1188,16 @@
                 this.value = this.value.replace(/[^[0-9]]*/gi, '');
             });
             $('body').on('keyup', ".onlyalphanum", function (event) {
-                this.value = this.value.replace(/[^[A-Za-z0-9]]*/gi, '');
+                this.value = this.value.replace(/[^[A-Za-z0-9 ]]*/gi, '');
             });
             $('body').on('keyup', ".spcchr", function (event) {
                 this.value = this.value.replace(/[^[A-Za-z0-9,.() ]]*/gi, '');
+            });
+            $('body').on('keyup', ".anum", function (event) {
+                this.value = this.value.replace(/[^a-zA-z-:,0-9\/]/g, '');
+            });
+            $('body').on('keyup', ".spc_chr", function (event) {
+                this.value = this.value.replace(/[^a-zA-z.,0-9 \/]/g, '');
             });
 
             $('input[name="otherdisease"]').change(function () {
@@ -1045,8 +1266,20 @@
                     fields: {
                         'uhid': {
                             validators: {
-                                notEmpty: {
-                                    message: "Please enter UHID"
+                                // notEmpty: {
+                                //     message: "Please enter RMH/UHID"
+                                // },
+                                remote: {
+                                    message: 'UHID already exist!',
+                                    url: "<?= base_url('admin/validate_UHID') ?>",
+                                    data: function (validator) {
+                                        return {
+                                            uhid: validator.getFieldElements('uhid').val(),
+                                            id: $('#formEid').val()
+                                        };
+                                    },
+                                    delay: 2000,
+                                    type: 'GET'
                                 },
                             }
                         },
@@ -1214,24 +1447,13 @@
                                 },
                             }
                         },
-                        'uhid': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please enter RMH/UHID"
-                                },
-                                remote: {
-                                    message: 'UHID already exist!',
-                                    url: "<?= base_url('superadmin/validate_UHID') ?>"
-                                },
-                            }
-                        },
-                        'mentrual': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please enter Obstetric / Mentrual History"
-                                },
-                            }
-                        },
+                        // 'mentrual': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please enter Obstetric / Mentrual History"
+                        //         },
+                        //     }
+                        // },
                         'pr_comp': {
                             validators: {
                                 notEmpty: {
@@ -1284,62 +1506,62 @@
                                 },
                             }
                         },
-                        'd_left': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Distance Vision Left Eye"
-                                },
-                            }
-                        },
-                        'd_right': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Distance Vision Right Eye"
-                                },
-                            }
-                        },
-                        'n_left': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Near Vision Left Eye"
-                                },
-                            }
-                        },
-                        'n_right': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Near Vision Right Eye"
-                                },
-                            }
-                        },
-                        'c_left': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Color Vision Left Eye"
-                                },
-                            }
-                        },
-                        'c_right': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Color Vision Right Eye"
-                                },
-                            }
-                        },
-                        'cr_left': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Correction Left Eye"
-                                },
-                            }
-                        },
-                        'cr_right': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Correction Right Eye"
-                                },
-                            }
-                        },
+                        // 'd_left': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Distance Vision Left Eye"
+                        //         },
+                        //     }
+                        // },
+                        // 'd_right': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Distance Vision Right Eye"
+                        //         },
+                        //     }
+                        // },
+                        // 'n_left': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Near Vision Left Eye"
+                        //         },
+                        //     }
+                        // },
+                        // 'n_right': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Near Vision Right Eye"
+                        //         },
+                        //     }
+                        // },
+                        // 'c_left': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Color Vision Left Eye"
+                        //         },
+                        //     }
+                        // },
+                        // 'c_right': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Color Vision Right Eye"
+                        //         },
+                        //     }
+                        // },
+                        // 'cr_left': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Correction Left Eye"
+                        //         },
+                        //     }
+                        // },
+                        // 'cr_right': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: "Please Enter Correction Right Eye"
+                        //         },
+                        //     }
+                        // },
                         'respiratory': {
                             validators: {
                                 notEmpty: {
@@ -1375,20 +1597,6 @@
                                 },
                             }
                         },
-                        'audiometry': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please ENter Audiometry Report"
-                                },
-                            }
-                        },
-                        'ecg': {
-                            validators: {
-                                notEmpty: {
-                                    message: "Please Enter Electrocardiogram - ECG Report"
-                                },
-                            }
-                        },
                         'xray': {
                             validators: {
                                 notEmpty: {
@@ -1405,9 +1613,9 @@
                         },
                         'upload-lungpdf': {
                             validators: {
-                                notEmpty: {
-                                    message: "Please choose a PDF file"
-                                },
+                                // notEmpty: {
+                                //     message: "Please choose a PDF file"
+                                // },
                                 file: {
                                     extension: 'pdf',
                                     type: 'application/pdf',
@@ -1418,9 +1626,9 @@
                         },
                         'upload-labpdf': {
                             validators: {
-                                notEmpty: {
-                                    message: "Please choose a PDF file"
-                                },
+                                // notEmpty: {
+                                //     message: "Please choose a PDF file"
+                                // },
                                 file: {
                                     extension: 'pdf',
                                     type: 'application/pdf',
@@ -1438,12 +1646,16 @@
                         }
 
                     }
+
                 }).on('success.form.bv', function (e) {
                     e.preventDefault();
                     var $form = $(e.target);
                     var bv = $form.data('bootstrapValidator');
+                    var fittoworkChecked = $('#fittowork').is(':checked');
+                    var fittoworkValue = fittoworkChecked ? '1' : '0';
                     var formData = new FormData($form[0]);
-                    console.log(formData);
+                    formData.append('fittowork', fittoworkValue);
+                    // console.log(formData);
                     $.ajax({
                         url: "<?= base_url('superadmin/newRegistration') ?>",
                         type: 'POST',
@@ -1463,7 +1675,7 @@
                                 setTimeout(function () {
                                     window.location.href = "<?= base_url('superadmin/newMemberDashboard') ?>";
                                 }, 3000);
-                            }
+                            }    
                         },
                         error: function (xhr, status, error) {
                             // Handle error

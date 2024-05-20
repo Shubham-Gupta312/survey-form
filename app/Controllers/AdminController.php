@@ -84,6 +84,20 @@ class AdminController extends BaseController
         }
     }
 
+    function validate_UHID()
+    {
+        $uid = $this->request->getGet('uhid');
+        $id = $this->request->getGet('id');
+        $md = new \App\Models\HealthModel();
+        // $isExist = $md->where('uhid', esc($uid))->first();
+        $isExist = $md->where('uhid', esc($uid))
+            ->where('id !=', $id)
+            ->first();
+        $retVal = $isExist ? false : true;
+
+        return $this->response->setJSON(['valid' => $retVal]);
+    }
+
     public function downloadZip()
     {
         $id = service('request')->getGet('i');

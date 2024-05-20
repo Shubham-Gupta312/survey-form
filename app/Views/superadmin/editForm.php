@@ -1603,13 +1603,13 @@
                                 }
                             }
                         },
-                        'dctrName': {
-                            validators: {
-                                notEmpty: {
-                                    message: 'Please Select a Doctor'
-                                }
-                            }
-                        },
+                        // 'dctrName': {
+                        //     validators: {
+                        //         notEmpty: {
+                        //             message: 'Please Select a Doctor'
+                        //         }
+                        //     }
+                        // },
                     },
                 }).on('success.form.bv', function (e) {
                     e.preventDefault();

@@ -33,6 +33,9 @@ $routes->group('superadmin', static function ($routes) {
     $routes->get('generatePdf?(:any)', 'SuperAdminController::generatePdf/$1', ['filter' => 'IsSuperAdmin']);
     // $routes->get('pdf', 'SuperAdminController::viewPdf', ['filter' => 'IsSuperAdmin']);
     $routes->get('zip?(:any)', 'SuperAdminController::downloadZip/$1', ['filter' => 'IsSuperAdmin']);
+
+    $routes->get('viewUserData?(:any)', 'SuperAdminController::ViewOfflineUserData/$1', ['filter' => 'IsSuperAdmin']);
+    $routes->get('offlinegeneratePdf?(:any)', 'SuperAdminController::generateOfflinePdf/$1', ['filter' => 'IsSuperAdmin']);
 });
 
 $routes->group('admin', static function ($routes) {
@@ -43,6 +46,7 @@ $routes->group('admin', static function ($routes) {
     $routes->get('logout', 'AuthController::Adminlogout');
 
     $routes->get('dashboard', 'AdminController::adminDashboard', ['filter' => 'IsAdmin']);
+    $routes->get('validateUHID', 'SuperAdminController::validate_UHID', ['filter' => 'IsAdmin']);
     $routes->get('adminfetchdata', 'AdminController::AdminfetchData', ['filter' => 'IsAdmin']);
     $routes->get('viewUserData?(:any)', 'AdminController::viewUserData/$1', ['filter' => 'IsAdmin']);
     $routes->get('zip?(:any)', 'AdminController::downloadZip/$1', ['filter' => 'IsAdmin']);

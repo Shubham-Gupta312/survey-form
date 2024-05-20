@@ -313,8 +313,7 @@
                     <tr>
                         <td width="100" class="no-border">
                             <?php if (isset($hospital[0]['photo']) && !empty($hospital[0]['photo'])): ?>
-                                <!-- <img src="<?= '../../images/uploads/' . $hospital[0]['photo'] ?>" width="150" /> -->
-                                <img src="<?='http://localhost/rm_hospital/public/uploads/images/' . $hospital[0]['photo']?>" width="150" />
+                                <img src="<?= '../../assets/images/uploads/' . $hospital[0]['photo'] ?>" width="150" />
                             <?php else: ?>
                                 <img src="<?= '../../assets/images/uploads/profile.png' ?>" width="150" />
                             <?php endif; ?>

@@ -21,7 +21,7 @@ class Encryption extends BaseConfig
      * You need to ensure it is long enough for the cipher and mode you plan to use.
      * See the user guide for more info.
      */
-    public string $key = '';
+    public string $key = '123456789';
 
     /**
      * --------------------------------------------------------------------------
@@ -63,7 +63,8 @@ class Encryption extends BaseConfig
      *
      * Set to false for CI3 Encryption compatibility.
      */
-    public bool $rawData = true;
+    public bool $rawData = false;
+    // public bool $rawData = true;
 
     /**
      * Encryption key info.
