@@ -223,6 +223,7 @@ class SuperAdminController extends BaseController
                 $advc = trim($this->request->getPost('advice'));
                 $img = $this->request->getFile('profileimage');
                 $ischeck = trim($this->request->getPost('fittowork'));
+                $workfitischeck = trim($this->request->getPost('workfit'));
                 $dctr = trim($this->request->getPost('dctrName'));
 
                 $data = [];
@@ -240,49 +241,49 @@ class SuperAdminController extends BaseController
                 $ecgpth = $currentData['ecg'] ?? '';
 
 
-                if (empty($lngpth) && $lng->isValid()) {
+                if ($lng->isValid()) {
                     $newlngFileName = $lng->getRandomName();
                     $lng->move("../public/uploads/lung_report/", $newlngFileName);
                     $lngpth = "public/uploads/lung_report/" . $newlngFileName;
                 }
 
-                if (empty($lbpth) && $lb->isValid()) {
+                if ($lb->isValid()) {
                     $newpdfName = $lb->getRandomName();
                     $lb->move("../public/uploads/lab_report/", $newpdfName);
                     $lbpth = "public/uploads/lab_report/" . $newpdfName;
                 }
 
-                if (empty($lbpth1) && $lb1->isValid()) {
+                if ($lb1->isValid()) {
                     $lb1pdfName = $lb1->getRandomName();
                     $lb1->move("../public/uploads/lab_report/", $lb1pdfName);
                     $lbpth1 = "public/uploads/lab_report/" . $lb1pdfName;
                 }
 
-                if (empty($lbpth2) && $lb2->isValid()) {
+                if ($lb2->isValid()) {
                     $lb2pdfName = $lb2->getRandomName();
                     $lb2->move("../public/uploads/lab_report/", $lb2pdfName);
                     $lbpth2 = "public/uploads/lab_report/" . $lb2pdfName;
                 }
 
-                if (empty($lbpth3) && $lb3->isValid()) {
+                if ($lb3->isValid()) {
                     $lb3pdfName = $lb3->getRandomName();
                     $lb3->move("../public/uploads/lab_report/", $lb3pdfName);
                     $lbpth3 = "public/uploads/lab_report/" . $lb3pdfName;
                 }
 
-                if (empty($lbpth4) && $lb4->isValid()) {
+                if ($lb4->isValid()) {
                     $lb4pdfName = $lb4->getRandomName();
                     $lb4->move("../public/uploads/lab_report/", $lb4pdfName);
                     $lbpth4 = "public/uploads/lab_report/" . $lb4pdfName;
                 }
 
-                if (empty($admpth) && $adm->isValid()) {
+                if ($adm->isValid()) {
                     $newAdmPdf = $adm->getRandomName();
                     $adm->move("../public/uploads/audiometry_report/", $newAdmPdf);
                     $admpth = "public/uploads/audiometry_report/" . $newAdmPdf;
                 }
 
-                if (empty($ecgpth) && $ecg->isValid()) {
+                if ($ecg->isValid()) {
                     $newEcgPdf = $ecg->getRandomName();
                     $ecg->move("../public/uploads/ecg_report/", $newEcgPdf);
                     $ecgpth = "public/uploads/ecg_report/" . $newEcgPdf;
@@ -325,6 +326,7 @@ class SuperAdminController extends BaseController
                     'lab3' => $lbpth3,
                     'lab4' => $lbpth4,
                     'is_checked' => esc($ischeck),
+                    'workfit_checked' => esc($workfitischeck),
                     'doctorName' => esc($dctr),
                     'advice' => esc($advc),
                     'updated_at' => date('Y-m-d H:i:s')

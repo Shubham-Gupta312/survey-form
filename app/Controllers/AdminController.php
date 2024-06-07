@@ -98,6 +98,87 @@ class AdminController extends BaseController
         return $this->response->setJSON(['valid' => $retVal]);
     }
 
+    // public function downloadZip()
+    // {
+    //     $id = service('request')->getGet('i');
+    //     $md = new \App\Models\HealthModel();
+    //     $data = $md->select('audiometry, ecg, lung, lab, lab1, lab2, lab3, lab4, generated_pdf')->where('id', $id)->first();
+
+    //     if (empty($data)) {
+    //         throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+    //     }
+
+    //     $zip = new \ZipArchive;
+    //     $zipFileName = date('Ymd_His') . '.zip';
+
+    //     if ($zip->open($zipFileName, \ZipArchive::CREATE | \ZipArchive::OVERWRITE) !== true) {
+    //         exit("Cannot create $zipFileName\n");
+    //     }
+
+
+    //     $files = ['audiometry', 'ecg', 'lung', 'lab', 'lab1', 'lab2', 'lab3', 'lab4', 'generated_pdf'];
+    //     foreach ($files as $file) {
+    //         if (!empty($data[$file])) {
+    //             $filePath = '../' . $data[$file];
+    //             if (file_exists($filePath)) {
+    //                 $fileName = ($file === 'generated_pdf') ? 'Report' : ucwords($file);
+    //                 $zip->addFile($filePath, ucwords($fileName) . '.' . pathinfo($filePath, PATHINFO_EXTENSION));
+    //             } else {
+    //                 error_log("File does not exist: $filePath");
+    //             }
+    //         } else {
+    //             $zip->addEmptyDir(ucwords($file));
+    //         }
+    //     }
+
+    //     $zip->close();
+
+    //     header("Content-type: application/zip");
+    //     header("Content-Disposition: attachment; filename=$zipFileName");
+    //     header("Pragma: no-cache");
+    //     header("Expires: 0");
+    //     readfile($zipFileName);
+
+    //     unlink($zipFileName);
+    // }
+
+
+    public function generatePdf($id, $stream = true)
+    {
+        // $id = service('request')->getGet('i');
+        $md = new \App\Models\HealthModel();
+        $data['hospital'] = $md->where('id', esc($id))->find();
+
+        if (!$data['hospital']) {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        }
+
+        $pdf = new \Dompdf\Dompdf();
+        $pdf->set_option('isRemoteEnabled', TRUE);
+        $pdf->loadHtml(view('superadmin/ViewPdf', $data));
+        $pdf->setPaper('A4', 'potrait');
+        $pdf->render();
+
+        $directory = 'public/uploads/generated_report/';
+
+        $pdfName = $data['hospital'][0]['emp_id'] . '_' . $data['hospital'][0]['name'] . '.pdf';
+        $pdfPath = $directory . $pdfName;
+
+        $path = 'public/uploads/generated_report/' . $pdfName;
+
+        file_put_contents($pdfPath, $pdf->output());
+
+        $dataToUpdate = [
+            'generated_pdf' => $path
+        ];
+        $md->update(esc($id), $dataToUpdate);
+
+        if ($stream) {
+            $pdf->stream($pdfName);
+        }
+
+    }
+
     public function downloadZip()
     {
         $id = service('request')->getGet('i');
@@ -115,19 +196,29 @@ class AdminController extends BaseController
             exit("Cannot create $zipFileName\n");
         }
 
+        $pdf = $this->generatePdf($id, false);
 
-        $files = ['audiometry', 'ecg', 'lung', 'lab', 'lab1', 'lab2', 'lab3', 'lab4', 'generated_pdf'];
+        $pdfdata = $md->select('generated_pdf')->where('id', $id)->first();
+        if (!empty($pdfdata['generated_pdf'])) {
+            $filePath = $pdfdata['generated_pdf'];
+            if (file_exists($filePath)) {
+                $zip->addFile($filePath, basename($filePath));
+            } else {
+                error_log("File does not exist: $filePath");
+            }
+        } else {
+            throw new \RuntimeException("Generated PDF not found for ID: $id");
+        }
+
+        $files = ['audiometry', 'ecg', 'lung', 'lab', 'lab1', 'lab2', 'lab3', 'lab4'];
         foreach ($files as $file) {
             if (!empty($data[$file])) {
-                $filePath = '../' . $data[$file];
+                $filePath = $data[$file];
                 if (file_exists($filePath)) {
-                    $fileName = ($file === 'generated_pdf') ? 'Report' : ucwords($file);
-                    $zip->addFile($filePath, ucwords($fileName) . '.' . pathinfo($filePath, PATHINFO_EXTENSION));
+                    $zip->addFile($filePath, ucwords($file) . '.' . pathinfo($filePath, PATHINFO_EXTENSION));
                 } else {
                     error_log("File does not exist: $filePath");
                 }
-            } else {
-                $zip->addEmptyDir(ucwords($file));
             }
         }
 
@@ -141,7 +232,6 @@ class AdminController extends BaseController
 
         unlink($zipFileName);
     }
-
     public function viewUserData()
     {
         $id = service('request')->getGet('i');

@@ -983,7 +983,15 @@
                             <div class="invalid-feedback text-danger" id="dctrName_msg">
                             </div>
                         </div>
-
+                        <div class="checkup-form__row custom-class">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="workfit"
+                                    name="workfit">
+                                <label class="form-check-label" for="workfit">
+                                    Fit to work
+                                </label>
+                            </div>
+                        </div>
 
                         <!-- Form Row -->
                         <div class="checkup-form__row">
@@ -1215,8 +1223,8 @@
                         var dt = response.message.lung;
                         var msg = "<?= base_url() ?>" + dt;
 
-                        $('#upload-lungpdf').hide();
-                        $('#lng_label').hide();
+                        // $('#upload-lungpdf').hide();
+                        // $('#lng_label').hide();
 
                         $('#lview_pdf').attr('href', msg).show();
                         $('#lpdf_nm').hide();
@@ -1227,8 +1235,8 @@
                     if (response.message.lab) {
                         var dt = response.message.lab;
                         var msg = "http://localhost/rm_hospital/" + dt;
-                        $('#upload-labpdf').hide();
-                        $('#lb_label').hide();
+                        // $('#upload-labpdf').hide();
+                        // $('#lb_label').hide();
 
                         $('#lbview_pdf').attr('href', msg).show();
                         $('#lbpdf_nm').hide();
@@ -1238,8 +1246,8 @@
                     if (response.message.lab1) {
                         var dt = response.message.lab1;
                         var msg = "http://localhost/rm_hospital/" + dt;
-                        $('#upload-labpdf1').hide();
-                        $('#lb1').hide();
+                        // $('#upload-labpdf1').hide();
+                        // $('#lb1').hide();
 
                         $('#lb1view_pdf').attr('href', msg).show();
                         $('#lbpdf1_nm').hide();
@@ -1249,8 +1257,8 @@
                     if (response.message.lab2) {
                         var dt = response.message.lab2;
                         var msg = "http://localhost/rm_hospital/" + dt;
-                        $('#upload-labpdf2').hide();
-                        $('#lb2').hide();
+                        // $('#upload-labpdf2').hide();
+                        // $('#lb2').hide();
 
                         $('#lb2view_pdf').attr('href', msg).show();
                         $('#lbpdf2_nm').hide();
@@ -1260,8 +1268,8 @@
                     if (response.message.lab3) {
                         var dt = response.message.lab3;
                         var msg = "http://localhost/rm_hospital/" + dt;
-                        $('#upload-labpdf3').hide();
-                        $('#lb3').hide();
+                        // $('#upload-labpdf3').hide();
+                        // $('#lb3').hide();
 
                         $('#lb3view_pdf').attr('href', msg).show();
                         $('#lbpdf3_nm').hide();
@@ -1271,8 +1279,8 @@
                     if (response.message.lab4) {
                         var dt = response.message.lab4;
                         var msg = "http://localhost/rm_hospital/" + dt;
-                        $('#upload-labpdf4').hide();
-                        $('#lb4').hide();
+                        // $('#upload-labpdf4').hide();
+                        // $('#lb4').hide();
 
                         $('#lb4view_pdf').attr('href', msg).show();
                         $('#lbpdf4_nm').hide();
@@ -1283,8 +1291,8 @@
                         var dt = response.message.audiometry;
                         var msg = "http://localhost/rm_hospital/" + dt;
 
-                        $('#audiometry').hide();
-                        $('#audiometry_label').hide();
+                        // $('#audiometry').hide();
+                        // $('#audiometry_label').hide();
 
                         $('#view_pdf').attr('href', msg).show();
                         $('#adm_nm').hide();
@@ -1295,8 +1303,8 @@
                         var dt = response.message.ecg;
                         var msg = "http://localhost/rm_hospital/" + dt;
 
-                        $('#ecg').hide();
-                        $('#ecg_label').hide();
+                        // $('#ecg').hide();
+                        // $('#ecg_label').hide();
 
                         $('#eview_pdf').attr('href', msg).show();
                         $('#ecg_nm').hide();
@@ -1314,6 +1322,9 @@
 
                     if (response.message.is_checked === '1') {
                         $('#fittowork').prop('checked', true).prop('disabled', true);
+                    }
+                    if (response.message.workfit_checked === '1') {
+                        $('#workfit').prop('checked', true).prop('disabled', true);
                     }
 
                     var allergy_name = response.message.allergy_name;
@@ -1616,8 +1627,11 @@
                     var $form = $(e.target);
                     var bv = $form.data('bootstrapValidator');
                     var fittoworkChecked = $('#fittowork').is(':checked');
+                    var workfit = $('#workfit').is(':checked');
+                    var workfitValue = workfit ? '1' : '0';
                     var fittoworkValue = fittoworkChecked ? '1' : '0';
                     var formData = new FormData($form[0]);
+                    formData.append('workfit', workfitValue);
                     formData.append('fittowork', fittoworkValue);
                     // console.log(formData);
                     $.ajax({
