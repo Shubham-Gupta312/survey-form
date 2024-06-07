@@ -585,6 +585,11 @@
                         <b>Fit to work under specific advice as mentioned above</b>
                     <?php endif; ?>
                 </div>
+                <div>
+                    <?php if ($hospital[0]['workfit_checked'] == '1'): ?>
+                        <b>Fit to work</b>
+                    <?php endif; ?>
+                </div>
 
                 <table class="no-border" style="margin-top: 80px;">
                     <tr>
